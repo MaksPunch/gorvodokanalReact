@@ -16,15 +16,15 @@ import {
 
 export const adminRoutes = [
     {
-        path: TEST_PAGE_ADMIN_ROUTE,
+        path: TEST_PAGE_ADMIN_ROUTE + ":id",
         element: TestPageAdmin
     },
     {
-        path: SECTION_PAGE_ADMIN_ROUTE,
+        path: SECTION_PAGE_ADMIN_ROUTE + ":id",
         element: SectionPageAdmin
     },
     {
-        path: COURSE_PAGE_ADMIN_ROUTE,
+        path: COURSE_PAGE_ADMIN_ROUTE + ":id",
         element: CoursePageAdmin
     },
 ]
@@ -35,7 +35,7 @@ export const publicRoutes = [
         element: Homepage
     },
     {
-        path: SECTION_PAGE_ROUTE,
+        path: SECTION_PAGE_ROUTE + ":id",
         element: SectionPage
     },
     {
@@ -43,11 +43,11 @@ export const publicRoutes = [
         element: Login
     },
     {
-        path: COURSE_PAGE_ROUTE,
+        path: COURSE_PAGE_ROUTE + ":id",
         element: CoursePage
     },
     {
-        path: TEST_PAGE_ROUTE,
+        path: TEST_PAGE_ROUTE + ":id",
         element: TestPage
     }
 ]
