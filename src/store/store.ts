@@ -1,8 +1,10 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import courseReducer from "./reducers/courseSlice.ts";
+import sectionReducer from "./reducers/sectionSlice.ts";
 
 const rootReducer = combineReducers({
-    courseReducer
+    courseReducer,
+    sectionReducer
 })
 
 export const setupStore = () => {

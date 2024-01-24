@@ -87,3 +87,12 @@ h2 {
 .progress-bar-full {
     border: 1px solid rgba(0,0,0, .2);
 }
+
+.courses-page-course {
+    width: calc(33% - 0.475rem);
+}
+
+.courses-page-course h1 {
+    font-size: 1.25rem;
+    font-weight: 600 !important;
+}
