@@ -3,7 +3,7 @@ import {MagnifyingGlassIcon} from "@heroicons/react/24/outline"
 import {BookOpenIcon} from "@heroicons/react/24/outline"
 import {ArrowTopRightOnSquareIcon} from "@heroicons/react/24/outline"
 import {Link} from "react-router-dom";
-import {COURSE_PAGE_ROUTE, SECTION_PAGE_ROUTE} from "../utils/consts.ts";
+import {COURSES_PAGE_ROUTE, SECTION_PAGE_ROUTE} from "../utils/consts.ts";
 import MyButton from "../components/MyButton.tsx";
 import {useAppSelector} from "../hooks/redux.ts";
 import CourseBlock from "../components/CourseBlock.tsx";
@@ -68,7 +68,7 @@ const Homepage = () => {
             <div className="my-courses mt-12 mb-10">
                 <div className="flex gap-5 items-center mb-7">
                     <h1>Мои курсы</h1>
-                    <Link to={COURSE_PAGE_ROUTE}><ArrowTopRightOnSquareIcon className="size-5 text-blue-600 transition-transform hover:scale-110"/></Link>
+                    <Link to={COURSES_PAGE_ROUTE}><ArrowTopRightOnSquareIcon className="size-5 text-blue-600 transition-transform hover:scale-110"/></Link>
                 </div>
                 <div className="courses-wrapper flex items-center flex-wrap gap-7 justify-between">
                     {courses.map(({id, name, sections}) =>

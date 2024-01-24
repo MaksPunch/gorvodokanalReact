@@ -15,14 +15,14 @@ const CoursePage = () => {
     }
     return (
         <div className="main-wrapper flex items-start gap-7">
-            <CourseBlock classes="w-[353px]" name={course.name} progress={50} id={Number(id)}></CourseBlock>
+            <CourseBlock className="min-w-[409px]" name={course.name} progress={50} id={Number(id)}></CourseBlock>
             <div className="sections-in-course-wrapper mb-4 w-full flex flex-col gap-4">
                 <h2>Программа курса</h2>
                 <div className="sections-container flex flex-col gap-6 w-full">
                     {course.sections.map(({name, id, steps}) =>
-                        <Link to={SECTION_PAGE_ROUTE + id} className="px-5 py-3 rounded shadow border border-black border-opacity-50 flex justify-between items-center">
-                            <h3 className="text-lg font-semibold">{name}</h3>
-                            <p>0/{steps} шагов пройдено</p>
+                        <Link to={SECTION_PAGE_ROUTE + `/${id}`} key={id} className="px-5 py-3 rounded shadow border border-black border-opacity-50 flex justify-between items-center gap-2.5">
+                            <h3 className="font-semibold line-clamp-1" title={name}>{name}</h3>
+                            <p className="text-sm min-w-fit">0/{steps} шагов пройдено</p>
                         </Link>
                     )}
                 </div>

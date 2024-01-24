@@ -6,10 +6,10 @@ interface propTypes {
     progress?: number,
     sectionsQuantity?: number,
     id: number,
-    classes?: string
+    className?: string
 }
 
-const CourseBlock = ({name, progress, sectionsQuantity, id, classes}: propTypes) => {
+const CourseBlock = ({name, progress, sectionsQuantity, id, className}: propTypes) => {
     let sectionsEnding = "тем";
     if (sectionsQuantity) {
         if (sectionsQuantity%10 === 1) {
@@ -19,10 +19,10 @@ const CourseBlock = ({name, progress, sectionsQuantity, id, classes}: propTypes)
         }
     }
     return (
-            <div className={"course flex flex-col gap-3.5 px-7 py-5 rounded " + classes}>
+            <div className={"course flex flex-col gap-3.5 px-7 py-5 rounded " + className}>
                 <div className="flex flex-col">
                     <p className="text-xs">Курс</p>
-                    <Link to={COURSE_PAGE_ROUTE + `${id}`}><h1 className="font-bold">{name}</h1></Link>
+                    <Link to={COURSE_PAGE_ROUTE + `/${id}`}><h1 className="font-bold">{name}</h1></Link>
                 </div>
                 {progress ?
                     <div className="progress-bar-wrapper flex flex-col gap-1.5">

@@ -7,24 +7,25 @@ import Login from "./pages/Login.tsx";
 import CoursePage from "./pages/CoursePage.tsx";
 import TestPage from "./pages/TestPage.tsx";
 import {
-    COURSE_PAGE_ADMIN_ROUTE, COURSE_PAGE_ROUTE,
+    COURSE_PAGE_ADMIN_ROUTE, COURSE_PAGE_ROUTE, COURSES_PAGE_ROUTE,
     HOME_ROUTE, LOGIN_ROUTE,
     SECTION_PAGE_ADMIN_ROUTE,
     SECTION_PAGE_ROUTE,
     TEST_PAGE_ADMIN_ROUTE, TEST_PAGE_ROUTE
 } from "./utils/consts.ts";
+import CoursesPage from "./pages/CoursesPage.tsx";
 
 export const adminRoutes = [
     {
-        path: TEST_PAGE_ADMIN_ROUTE + ":id",
+        path: TEST_PAGE_ADMIN_ROUTE + "/:id",
         element: TestPageAdmin
     },
     {
-        path: SECTION_PAGE_ADMIN_ROUTE + ":id",
+        path: SECTION_PAGE_ADMIN_ROUTE + "/:id",
         element: SectionPageAdmin
     },
     {
-        path: COURSE_PAGE_ADMIN_ROUTE + ":id",
+        path: COURSE_PAGE_ADMIN_ROUTE + "/:id",
         element: CoursePageAdmin
     },
 ]
@@ -35,7 +36,7 @@ export const publicRoutes = [
         element: Homepage
     },
     {
-        path: SECTION_PAGE_ROUTE + ":id",
+        path: SECTION_PAGE_ROUTE + "/:id",
         element: SectionPage
     },
     {
@@ -43,11 +44,15 @@ export const publicRoutes = [
         element: Login
     },
     {
-        path: COURSE_PAGE_ROUTE + ":id",
+        path: COURSE_PAGE_ROUTE + "/:id",
         element: CoursePage
     },
     {
-        path: TEST_PAGE_ROUTE + ":id",
+        path: COURSES_PAGE_ROUTE,
+        element: CoursesPage
+    },
+    {
+        path: TEST_PAGE_ROUTE + "/:id",
         element: TestPage
     }
 ]
