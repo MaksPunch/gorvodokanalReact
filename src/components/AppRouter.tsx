@@ -5,7 +5,7 @@ const AppRouter = () => {
     return (
         <Routes>
             {publicRoutes.map(({path, element}) =>
-                <Route key={path} path={path} Component={() => element()}/>
+                <Route key={path} path={path} Component={element}/>
             )}
             <Route path="*" Component={() => <Navigate to={'/'}/>}/>
         </Routes>

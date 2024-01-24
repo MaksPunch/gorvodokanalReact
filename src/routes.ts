@@ -52,7 +52,7 @@ export const publicRoutes = [
         element: CoursesPage
     },
     {
-        path: TEST_PAGE_ROUTE + "/:id",
+        path: SECTION_PAGE_ROUTE + '/:sectionId' + TEST_PAGE_ROUTE + "/:questionId",
         element: TestPage
     }
 ]

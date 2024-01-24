@@ -1,7 +1,28 @@
-import {ISection} from "./courseSlice.ts";
 import {createSlice} from "@reduxjs/toolkit";
+import {ISection} from "../../utils/types.ts";
 
 const initialState: ISection[] = [
+    {
+        id: 1,
+        name: "Цифровые преступники",
+        content: "живите",
+        testId: 1,
+        steps: 5
+    },
+    {
+        id: 2,
+        name: "Безопасность в интернете",
+        content: "живите",
+        testId: 1,
+        steps: 10
+    },
+    {
+        id: 3,
+        name: "Безопасность для детей",
+        content: "живите",
+        testId: 1,
+        steps: 2
+    },
     {
         id: 4,
         name: "Целостность, доступность и конфиденциальность информации",

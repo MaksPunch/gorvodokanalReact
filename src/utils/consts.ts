@@ -1,9 +1,9 @@
 export const LOGIN_ROUTE:string = '/login';
 export const HOME_ROUTE:string = '/';
-export const TEST_PAGE_ROUTE:string = '/testPage';
-export const TEST_PAGE_ADMIN_ROUTE:string = '/admin/testPage';
-export const SECTION_PAGE_ROUTE:string = '/sectionPage';
-export const SECTION_PAGE_ADMIN_ROUTE:string = '/admin/sectionPage';
-export const COURSE_PAGE_ROUTE:string = '/coursePage';
-export const COURSES_PAGE_ROUTE:string = '/coursesPage';
-export const COURSE_PAGE_ADMIN_ROUTE:string = '/admin/coursePage';
+export const SECTION_PAGE_ROUTE:string = '/section';
+export const SECTION_PAGE_ADMIN_ROUTE:string = '/admin/section';
+export const TEST_PAGE_ROUTE:string = '/test';
+export const TEST_PAGE_ADMIN_ROUTE:string = '/admin/test';
+export const COURSE_PAGE_ROUTE:string = '/course';
+export const COURSES_PAGE_ROUTE:string = '/courses';
+export const COURSE_PAGE_ADMIN_ROUTE:string = '/admin/course';

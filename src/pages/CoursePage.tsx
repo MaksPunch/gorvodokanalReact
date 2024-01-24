@@ -1,5 +1,5 @@
 import {useAppSelector} from "../hooks/redux.ts";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, Navigate, useParams} from "react-router-dom";
 import CourseBlock from "../components/CourseBlock.tsx";
 import {HOME_ROUTE, SECTION_PAGE_ROUTE} from "../utils/consts.ts";
 
@@ -9,9 +9,8 @@ const CoursePage = () => {
     const courses = useAppSelector(state => state.courseReducer)
     const {id} = useParams<Params>();
     const course = courses.find((el) => el.id === Number(id))
-    const navigate = useNavigate();
     if (!course) {
-        return navigate(HOME_ROUTE);
+        return <Navigate to={HOME_ROUTE}/>;
     }
     return (
         <div className="main-wrapper flex items-start gap-7">

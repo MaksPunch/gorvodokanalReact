@@ -12,7 +12,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function NavigationSteps({userSteps}: {userSteps?: typeof steps}) {
+export default function NavigationSteps({}: {userSteps?: typeof steps}) {
     return (
         <nav aria-label="Progress">
             <ol role="list" className="flex items-center">

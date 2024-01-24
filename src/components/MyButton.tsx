@@ -1,7 +1,7 @@
-import {ReactNode} from 'react'
+import React from 'react'
 
 type Props = {
-    children: ReactNode
+    children: React.JSX.Element | string
 }
 
 const MyButton = ({children}: Props) => {
