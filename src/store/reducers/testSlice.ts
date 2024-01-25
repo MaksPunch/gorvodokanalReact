@@ -30,7 +30,8 @@ const initialState: ITest[] = [
                         questionId: 1,
                         rightAnswer: false
                     },
-                ]
+                ],
+                done: false
             },
             {
                 id: 2,
@@ -68,7 +69,8 @@ const initialState: ITest[] = [
                         questionId: 2,
                         rightAnswer: false
                     },
-                ]
+                ],
+                done: false
             },
             {
                 id: 3,
@@ -100,7 +102,8 @@ const initialState: ITest[] = [
                         questionId: 2,
                         rightAnswer: false
                     }
-                ]
+                ],
+                done: false
             },
         ]
     },

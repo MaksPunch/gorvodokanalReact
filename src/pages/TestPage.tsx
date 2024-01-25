@@ -3,8 +3,9 @@ import {HOME_ROUTE, SECTION_PAGE_ROUTE, TEST_PAGE_ROUTE} from "../utils/consts.t
 import {useAppSelector} from "../hooks/redux.ts";
 import NavigationSteps from "../components/NavigationSteps.tsx";
 import {useEffect, useState} from "react";
-import {IQuestion, ISection} from "../utils/types.ts";
+import {IQuestion, ISection, ITest} from "../utils/types.ts";
 import MyRadio from "../components/MyRadio.tsx";
+import {classNames} from "../utils/classNames.ts";
 
 const TestPage = () => {
     const {questionId, sectionId} = useParams<'questionId' | 'sectionId'>();
@@ -15,10 +16,12 @@ const TestPage = () => {
         name: '',
         answers: [
             {answer: '', rightAnswer: false, questionId: 1, id: 1}
-        ]
+        ],
+        done: false
     })
     const [nextQuestionId, setNextQuestionId] = useState<number | string>(2);
     const [section, setSection] = useState<ISection>({name: '', id: 1, content: "", steps: 4, testId: 1})
+    const [test, setTest] = useState<ITest>({name: '', id: 1, questions: [question]});
     const navigate = useNavigate();
     const sections = useAppSelector(state => state.sectionReducer)
     const tests = useAppSelector(state => state.testReducer)
@@ -29,13 +32,14 @@ const TestPage = () => {
         if (!sectionFound) return navigate('not_found');
         setSection(sectionFound);
         const testId = sectionFound.testId;
-        const test = tests.find(el => el.id === testId)
-        if (!test) return navigate('not_found');
+        const testFound = tests.find(el => el.id === testId)
+        if (!testFound) return navigate('not_found');
+        setTest(testFound);
 
-        const questionFound = test.questions.find(el => el.id === Number(questionId));
+        const questionFound = testFound.questions.find(el => el.id === Number(questionId));
         if (!questionFound) return navigate('not_found');
         setQuestion(questionFound);
-        const nextQuestionFound = test.questions.find(el => el.id === Number(questionId) + 1);
+        const nextQuestionFound = testFound.questions.find(el => el.id === Number(questionId) + 1);
         if (!nextQuestionFound) setNextQuestionId('result');
         else setNextQuestionId(nextQuestionFound.id);
     }, [questionId]);
@@ -48,6 +52,13 @@ const TestPage = () => {
     } else {
         typeText = 'Напишите слово или словосочетание'
     }
+
+    function selectAnswer(answerId: number) {
+        const question = test.questions.find(el => el.id === Number(questionId));
+        const answer = question?.answers?.find(el => el.id === answerId)
+
+    }
+
     return (
         <div>
             <div className="main-wrapper flex flex-col gap-12">
@@ -56,30 +67,55 @@ const TestPage = () => {
                     <p>0/{section.steps} шагов пройдено</p>
                 </div>
                 <div className="test-container flex flex-col gap-5">
-                    <div className="test-header">
-                        <h2 className="font-bold">{question.name}</h2>
-                        <div className="text-xs font-normal">{typeText}</div>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        {question.type === 'radio' && question.answers ?
-                            question.answers.map(({answer, id}) =>
-                                <MyRadio key={id} label={answer} value={id.toString()} name={"question_" + question.id}/>
-                            )
-                            :
-                            ""
-                        }
-                        {/*{question.type === 'checkbox' && question.answers ?*/}
-                        {/*    question.answers?.map(({answer, id}) =>*/}
-                        {/*        <MyCheckbox key={id} label={answer} value={id} name={"question_" + question.id}/>*/}
-                        {/*    )*/}
-                        {/*    :*/}
-                        {/*    ""*/}
-                        {/*}*/}
-                        {question.type === 'text' && question.answers ?
-                            <input type="text" name={"question_" + question.id} className="px-2.5 py-2 bg-white rounded shadow border border-black border-opacity-40"/>
-                            :
-                            ""
-                        }
+                    <div className="flex justify-between items-start gap-5">
+                        <div className="flex flex-col gap-5">
+                            <div className="test-header">
+                                <h2 className="font-bold">{question.name}</h2>
+                                <div className="text-xs font-normal">{typeText}</div>
+                            </div>
+                            <div className="flex flex-col gap-4">
+                                {question.type === 'radio' && question.answers ?
+                                    question.answers.map(({answer, id}) =>
+                                        <MyRadio key={id} label={answer} value={id}
+                                                 name={"question_" + question.id}/>
+                                    )
+                                    :
+                                    ""
+                                }
+                                {/*{question.type === 'checkbox' && question.answers ?*/}
+                                {/*    question.answers?.map(({answer, id}) =>*/}
+                                {/*        <MyCheckbox key={id} label={answer} value={id} name={"question_" + question.id}/>*/}
+                                {/*    )*/}
+                                {/*    :*/}
+                                {/*    ""*/}
+                                {/*}*/}
+                                {question.type === 'text' && question.answers ?
+                                    <input type="text" name={"question_" + question.id}
+                                           className="px-2.5 py-2 bg-white rounded shadow border border-black border-opacity-40"/>
+                                    :
+                                    ""
+                                }
+                            </div>
+                        </div>
+                        <div
+                            className="min-w-64 p-4 rounded-md border border-black border-opacity-30 flex flex-col justify-center items-center gap-6"
+                        >
+                            <h2 className="font-semibold">Вопросы теста</h2>
+                            <div className="justify-start items-start gap-4 inline-flex flex-wrap">
+                                {test?.questions.map(({id, done}, index) => (
+                                        <Link key={id}
+                                              to={SECTION_PAGE_ROUTE + '/' + sectionId + TEST_PAGE_ROUTE + "/" + id}
+                                              className={classNames(
+                                                  id === Number(questionId) ? "border-2 border-blue-400" : "border border-black border-opacity-25",
+                                                  done ? "bg-emerald-400" : "bg-white",
+                                                  "px-6 py-2 rounded gap-2.5 flex"
+                                              )}>
+                                            <p className={classNames(question.done ? "text-white" : "text-black", "text-xl tracking-tight")}>{index + 1}</p>
+                                        </Link>
+                                    )
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <Link

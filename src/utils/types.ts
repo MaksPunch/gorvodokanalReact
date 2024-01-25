@@ -2,7 +2,8 @@ export interface IAnswer {
     id: number,
     questionId: number,
     rightAnswer: boolean,
-    answer: string
+    answer: string,
+    selected?: boolean
 }
 
 export interface IQuestion {
@@ -10,7 +11,8 @@ export interface IQuestion {
     testId: number,
     type: string,
     answers: null | IAnswer[],
-    name: string
+    name: string,
+    done: boolean
 }
 
 export interface ITest {
