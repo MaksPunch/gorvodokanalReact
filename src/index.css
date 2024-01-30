@@ -96,3 +96,8 @@ h2 {
     font-size: 1.25rem;
     font-weight: 600 !important;
 }
+
+.sidebar {
+    box-shadow: 3px 0 15px 0 rgba(0, 0, 0, 0.35);
+    transition: transform .3s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+}

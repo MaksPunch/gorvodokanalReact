@@ -5,11 +5,17 @@ import {ArrowTopRightOnSquareIcon} from "@heroicons/react/24/outline"
 import {Link} from "react-router-dom";
 import {COURSES_PAGE_ROUTE, SECTION_PAGE_ROUTE} from "../utils/consts.ts";
 import MyButton from "../components/MyButton.tsx";
-import {useAppSelector} from "../hooks/redux.ts";
+import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
 import CourseBlock from "../components/CourseBlock.tsx";
+import {fetchCourses, selectCourses} from "../store/reducers/courseSlice.ts";
+import {useEffect} from "react";
 
 const Homepage = () => {
-    const courses = useAppSelector(state => state.courseReducer)
+    const courses = useAppSelector(state => selectCourses(state))
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(fetchCourses())
+    }, []);
     return (
         <div className="main-wrapper">
             <h1 className="text-3xl font-medium">Главная страница</h1>
@@ -71,8 +77,8 @@ const Homepage = () => {
                     <Link to={COURSES_PAGE_ROUTE}><ArrowTopRightOnSquareIcon className="size-5 text-blue-600 transition-transform hover:scale-110"/></Link>
                 </div>
                 <div className="courses-wrapper flex items-center flex-wrap gap-7 justify-between">
-                    {courses.map(({id, name, sections}) =>
-                        <CourseBlock name={name} key={id} sectionsQuantity={sections.length} progress={50} id={id}/>
+                    {courses.map(({id, name, sectionsQuantity}) =>
+                        <CourseBlock name={name} key={id} sectionsQuantity={sectionsQuantity} progress={50} id={id}/>
                     )}
                 </div>
             </div>

@@ -4,13 +4,14 @@ export interface IAnswer {
   rightAnswer: boolean;
   answer: string;
   selected: boolean;
+  testId: number;
 }
 
 export interface IQuestion {
   id: number;
   testId: number;
   type: string;
-  answers: null | IAnswer[];
+  answers?: null | IAnswer[];
   name: string;
   done: boolean;
 }
@@ -18,7 +19,7 @@ export interface IQuestion {
 export interface ITest {
   id: number;
   name: string;
-  questions: IQuestion[];
+  questions?: IQuestion[];
 }
 
 export interface ISection {
@@ -27,10 +28,12 @@ export interface ISection {
   testId: number;
   content: string;
   steps: number;
+  courseId: number
 }
 
 export interface ICourse {
   id: number;
   name: string;
-  sections: ISection[];
+  sections?: ISection[];
+  sectionsQuantity: number
 }

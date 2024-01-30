@@ -1,5 +1,8 @@
 import {Link} from "react-router-dom";
 import {COURSE_PAGE_ROUTE} from "../utils/consts.ts";
+import {useEffect} from "react";
+import {fetchSections, getSectionsQuantityFromCourse} from "../store/reducers/sectionSlice.ts";
+import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
 
 interface propTypes {
     name: string,
@@ -9,8 +12,14 @@ interface propTypes {
     className?: string
 }
 
-const CourseBlock = ({name, progress, sectionsQuantity, id, className}: propTypes) => {
+const CourseBlock = ({name, progress, id, className}: propTypes) => {
     let sectionsEnding = "тем";
+    const dispatch = useAppDispatch();
+    const sectionsQuantity = useAppSelector(getSectionsQuantityFromCourse(id));
+    console.log(sectionsQuantity)
+    useEffect(() => {
+        dispatch(fetchSections());
+    }, []);
     if (sectionsQuantity) {
         if (sectionsQuantity%10 === 1) {
             sectionsEnding = "тема"

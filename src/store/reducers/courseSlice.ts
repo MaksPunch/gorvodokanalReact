@@ -1,67 +1,64 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {ICourse} from "../../utils/types.ts";
+import {RootState} from "../store.ts";
 
-const initialState: ICourse[] = [
-    {
-        id: 1,
-        name: 'Информационная безопасность',
-        sections: [
+const courseAdapter = createEntityAdapter<ICourse>()
+
+export const fetchCourses = createAsyncThunk(
+    'sections/fetchCourses',
+    async () => {
+        return [
             {
                 id: 1,
-                name: "Цифровые преступники",
-                content: "живите",
-                testId: 1,
-                steps: 5
+                name: 'Информационная безопасность',
+                sectionsQuantity: 3
             },
             {
                 id: 2,
-                name: "Безопасность в интернете",
-                content: "живите",
-                testId: 1,
-                steps: 10
+                name: 'Основы защиты информации',
+                sectionsQuantity: 3
             },
-            {
-                id: 3,
-                name: "Безопасность для детей",
-                content: "живите",
-                testId: 1,
-                steps: 2
-            },
-        ]
-    },
-    {
-        id: 2,
-        name: 'Основы защиты информации',
-        sections: [
-            {
-                id: 4,
-                name: "Целостность, доступность и конфиденциальность информации",
-                content: "живите",
-                testId: 1,
-                steps: 4
-            },
-            {
-                id: 5,
-                name: "Классификация информации по видам тайны и степеням конфиденциальности",
-                content: "живите",
-                testId: 1,
-                steps: 8
-            },
-            {
-                id: 6,
-                name: "Жизненные циклы конфиденциальной информации",
-                content: "живите",
-                testId: 1,
-                steps: 3
-            },
-        ]
-    },
-]
+        ] as ICourse[]
+    })
+
+const initialState = courseAdapter.getInitialState<{
+    status: string,
+    entities: ICourse[],
+    courseId: number,
+    sidebarOpen: boolean
+}>({
+    status: 'idle',
+    entities: [],
+    courseId: 0,
+    sidebarOpen: false
+})
 
 export const courseSlice = createSlice({
     name: 'courseSlice',
     initialState,
-    reducers: {}
+    reducers: (create) => ({
+        changeCourse: create.reducer<number>((state, action) => {
+            state.courseId = action.payload;
+        }),
+        toggleSidebar(state) {
+            state.sidebarOpen = !state.sidebarOpen;
+        }
+    }),
+    extraReducers: builder => {
+        builder
+            .addCase(fetchCourses.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchCourses.fulfilled, (state, action) => {
+                courseAdapter.setAll(state, action.payload);
+                state.status = 'idle';
+            })
+    }
 })
+
+export const {changeCourse, toggleSidebar} = courseSlice.actions;
+
+export const {selectAll: selectCourses, selectById: selectCourseById} =
+    courseAdapter.getSelectors((state: RootState) => state.courseReducer)
 
 export default courseSlice.reducer;
