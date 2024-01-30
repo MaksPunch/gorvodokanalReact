@@ -1,4 +1,4 @@
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {COURSES_PAGE_ROUTE, HOME_ROUTE, LOGIN_ROUTE} from "../utils/consts.ts";
 import logo from '../public/logo.png'
 import userIconImg from '../public/User.png'

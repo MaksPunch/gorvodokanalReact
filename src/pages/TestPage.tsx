@@ -152,7 +152,7 @@ const TestPage = () => {
                     }
                     className="self-end text-sm px-4 py-2 rounded bg-blue-700 text-white flex justify-center items-center gap-2.5"
                 >
-                    Следующий вопрос
+                    {typeof nextQuestionId === "number" ? "Следующий вопрос" : "Перейти к результатам"}
                 </Link>
             </div>
         </div>
