@@ -20,9 +20,6 @@ const CoursesPage = () => {
                 {courses.map(({id, name})=>
                     <CourseBlock key={id} id={id} name={name} className="courses-page-course"/>
                 )}
-                {courses.map(({id, name})=>
-                    <CourseBlock key={id} id={id} name={name} className="courses-page-course"/>
-                )}
             </div>
         </div>
     );
