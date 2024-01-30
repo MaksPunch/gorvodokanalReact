@@ -49,7 +49,7 @@ export const publicRoutes = [
     element: Login,
   },
   {
-    path: COURSE_PAGE_ROUTE + "/:id",
+    path: COURSE_PAGE_ROUTE + "/:courseId",
     element: CoursePage,
   },
   {

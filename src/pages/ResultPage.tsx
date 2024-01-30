@@ -3,10 +3,11 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {useEffect, useState} from "react";
 import NavigationSteps from "../components/NavigationSteps.tsx";
 import {COURSES_PAGE_ROUTE, SECTION_PAGE_ROUTE} from "../utils/consts.ts";
-import {fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
+import {changeSection, fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
 import {fetchTests} from "../store/reducers/testSlice.ts";
 import {fetchAnswers, selectAnswersByTestId} from "../store/reducers/answerSlice.ts";
 import {fetchQuestions, selectQuestionsByTestId} from "../store/reducers/questionSlice.ts";
+import {changeCourse} from "../store/reducers/courseSlice.ts";
 
 export default function ResultPage() {
     const {sectionId} = useParams<"sectionId">();
@@ -31,7 +32,14 @@ export default function ResultPage() {
             }
             setRightAnswers(rightAnswersCount)
         }
+
+        dispatch(changeSection(Number(sectionId)));
     }, [sectionId]);
+
+    useEffect(() => {
+        dispatch(changeCourse(section?.courseId));
+    }, [section]);
+
     return (
         <div className="main-wrapper">
             <div className="flex justify-between items-center mb-20">

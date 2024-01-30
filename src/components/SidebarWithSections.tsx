@@ -37,7 +37,9 @@ const SidebarWithSections = () => {
                 <div className="flex flex-col gap-2.5">
                     {sections.map(({name, id}, index) =>
                         <div
-                            className={classNames("flex justify-between gap-3.5 px-2.5 py-2 rounded ", (sectionId === id) ? "bg-black bg-opacity-20" : "")}>
+                            className={classNames("flex justify-between gap-3.5 px-2.5 py-2 rounded ", (sectionId === id) ? "bg-black bg-opacity-20" : "")}
+                            key={id}
+                        >
                             <Link className="text-lg font-medium line-clamp-2"
                                   to={SECTION_PAGE_ROUTE + "/" + id}>{index + 1}. {name}</Link>
                             <ChevronRightIcon className="min-w-6 max-h-6 size-6"/>

@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
 import arrowRight from '../public/arrow-right.svg'
 import {useEffect} from "react";
 import {changeSection, fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
+import {changeCourse} from "../store/reducers/courseSlice.ts";
 
 const SectionPage = () => {
     const {id} = useParams<'id'>();
@@ -13,8 +14,10 @@ const SectionPage = () => {
     useEffect(() => {
         dispatch(fetchSections());
     }, []);
+
     useEffect(() => {
         dispatch(changeSection(Number(id)));
+        dispatch(changeCourse(section?.courseId));
     }, [id]);
     return (
         <div className="main-wrapper flex flex-col gap-12">

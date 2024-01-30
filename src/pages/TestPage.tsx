@@ -14,7 +14,8 @@ import {
     selectQuestionById,
     selectQuestionsByTestId
 } from "../store/reducers/questionSlice.ts";
-import {fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
+import {changeSection, fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
+import {changeCourse} from "../store/reducers/courseSlice.ts";
 
 const TestPage = () => {
     const {questionId, sectionId} = useParams<"questionId" | "sectionId">();
@@ -29,7 +30,13 @@ const TestPage = () => {
         dispatch(fetchAnswers());
         dispatch(fetchQuestions());
         dispatch(fetchSections())
+
+        dispatch(changeSection(Number(sectionId)));
     }, [sectionId]);
+
+    useEffect(() => {
+        dispatch(changeCourse(section?.courseId));
+    }, [section]);
 
     useEffect(() => {
         const nextQuestionFound = questions.find(

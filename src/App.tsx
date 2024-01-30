@@ -4,17 +4,23 @@ import AppRouter from "./components/AppRouter.tsx";
 import Header from "./components/Header.tsx";
 import SidebarWithSections from "./components/SidebarWithSections.tsx";
 import OpenSidebarButton from "./components/OpenSidebarButton.tsx";
+import {useAppSelector} from "./hooks/redux.ts";
 
 function App() {
+    const {courseId} = useAppSelector(state => state.courseReducer);
+    return (
+        <BrowserRouter>
+            <Header/>
+            {
+                courseId ? <div>
+                    <OpenSidebarButton/>
+                    <SidebarWithSections/>
+                </div> : ""
+            }
 
-  return (
-      <BrowserRouter>
-          <Header/>
-          <SidebarWithSections/>
-          <OpenSidebarButton/>
-          <AppRouter/>
-      </BrowserRouter>
-  )
+            <AppRouter/>
+        </BrowserRouter>
+    )
 }
 
 export default App

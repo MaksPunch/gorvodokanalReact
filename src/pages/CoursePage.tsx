@@ -11,29 +11,29 @@ import {
 import {changeCourse, fetchCourses, selectCourseById} from "../store/reducers/courseSlice.ts";
 import {RootState} from "../store/store.ts";
 
-type Params = 'id'
+type Params = 'courseId'
 
 const CoursePage = () => {
     // const courses = useAppSelector(state => state.courseReducer)
-    const {id} = useParams<Params>();
+    const {courseId} = useParams<Params>();
     // const navigate = useNavigate();
     const dispatch = useAppDispatch();
     // const [course, setCourse] = useState<ICourse>({name: '', id: 1, sectionsQuantity: 4})
-    const sections = useAppSelector(selectSectionsByCourseId(Number(id)));
-    const course = useAppSelector((state: RootState) => selectCourseById(state, Number(id)));
+    const sections = useAppSelector(selectSectionsByCourseId(Number(courseId)));
+    const course = useAppSelector((state: RootState) => selectCourseById(state, Number(courseId)));
     useEffect(() => {
         dispatch(fetchCourses());
         dispatch(fetchSections());
-        dispatch(changeCourse(Number(id)));
+        dispatch(changeCourse(Number(courseId)));
         dispatch(changeSection(0));
         // const course = courses.find((el) => el.id === Number(id))
         // if (!course) return navigate(HOME_ROUTE);
         // setCourse(course);
-    }, [id]);
+    }, [courseId]);
 
     return (
         <div className="main-wrapper flex items-start gap-7">
-            <CourseBlock className="min-w-[409px]" name={course?.name} progress={50} id={Number(id)}></CourseBlock>
+            <CourseBlock className="min-w-[409px]" name={course?.name} progress={50} id={Number(courseId)}></CourseBlock>
             <div className="sections-in-course-wrapper mb-4 w-full flex flex-col gap-4">
                 <h2>Программа курса</h2>
                 <div className="sections-container flex flex-col gap-6 w-full">

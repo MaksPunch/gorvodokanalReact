@@ -16,7 +16,6 @@ const CourseBlock = ({name, progress, id, className}: propTypes) => {
     let sectionsEnding = "тем";
     const dispatch = useAppDispatch();
     const sectionsQuantity = useAppSelector(getSectionsQuantityFromCourse(id));
-    console.log(sectionsQuantity)
     useEffect(() => {
         dispatch(fetchSections());
     }, []);
