@@ -8,9 +8,10 @@ import {useAppSelector} from "./hooks/redux.ts";
 
 function App() {
     const {courseId} = useAppSelector(state => state.courseReducer);
+    const {userId} = useAppSelector(state => state.userReducer);
     return (
         <BrowserRouter>
-            <Header/>
+            {userId ? <Header/> : ""}
             {
                 courseId ? <div>
                     <OpenSidebarButton/>

@@ -37,3 +37,13 @@ export interface ICourse {
   sections?: ISection[];
   sectionsQuantity: number
 }
+
+export interface IUser {
+  id: number;
+  email: string;
+  avatar: string;
+  phone: string;
+  name: string;
+  surname: string;
+  patronymic: string;
+}

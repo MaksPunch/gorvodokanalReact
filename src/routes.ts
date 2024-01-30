@@ -11,7 +11,7 @@ import {
   COURSE_PAGE_ROUTE,
   COURSES_PAGE_ROUTE,
   HOME_ROUTE,
-  LOGIN_ROUTE,
+  LOGIN_ROUTE, PROFILE_EDIT_PAGE_ROUTE,
   SECTION_PAGE_ADMIN_ROUTE,
   SECTION_PAGE_ROUTE,
   TEST_PAGE_ADMIN_ROUTE,
@@ -19,6 +19,7 @@ import {
 } from "./utils/consts.ts";
 import CoursesPage from "./pages/CoursesPage.tsx";
 import ResultPage from "./pages/ResultPage.tsx";
+import ProfileEdit from "./pages/ProfileEdit.tsx";
 
 export const adminRoutes = [
   {
@@ -35,7 +36,7 @@ export const adminRoutes = [
   },
 ];
 
-export const publicRoutes = [
+export const userRoutes = [
   {
     path: HOME_ROUTE,
     element: Homepage,
@@ -43,10 +44,6 @@ export const publicRoutes = [
   {
     path: SECTION_PAGE_ROUTE + "/:id",
     element: SectionPage,
-  },
-  {
-    path: LOGIN_ROUTE,
-    element: Login,
   },
   {
     path: COURSE_PAGE_ROUTE + "/:courseId",
@@ -64,4 +61,15 @@ export const publicRoutes = [
     path: SECTION_PAGE_ROUTE + "/:sectionId" + TEST_PAGE_ROUTE + "/result",
     element: ResultPage,
   },
+  {
+    path: PROFILE_EDIT_PAGE_ROUTE,
+    element: ProfileEdit
+  }
 ];
+
+export const publicRoutes = [
+  {
+    path: LOGIN_ROUTE,
+    element: Login,
+  },
+]

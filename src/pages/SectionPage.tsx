@@ -2,7 +2,7 @@ import NavigationSteps from "../components/NavigationSteps.tsx";
 import {Link, useParams} from "react-router-dom";
 import {SECTION_PAGE_ROUTE, TEST_PAGE_ROUTE} from "../utils/consts.ts";
 import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
-import arrowRight from '../public/arrow-right.svg'
+import arrowRight from '../public/img/arrow-right.svg'
 import {useEffect} from "react";
 import {changeSection, fetchSections, selectSectionById} from "../store/reducers/sectionSlice.ts";
 import {changeCourse} from "../store/reducers/courseSlice.ts";

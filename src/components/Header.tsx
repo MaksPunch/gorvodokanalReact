@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
-import {COURSES_PAGE_ROUTE, HOME_ROUTE, LOGIN_ROUTE} from "../utils/consts.ts";
-import logo from '../public/logo.png'
-import userIconImg from '../public/User.png'
+import {COURSES_PAGE_ROUTE, HOME_ROUTE, PROFILE_EDIT_PAGE_ROUTE} from "../utils/consts.ts";
+import logo from '../public/img/logo.png'
+import userIconImg from '../public/img/User.png'
 import {BellIcon} from '@heroicons/react/24/outline'
 import {classNames} from "../utils/classNames.ts";
 
@@ -28,7 +28,7 @@ const Header = () => {
             <div className="flex items-center gap-5">
                 <BellIcon className="size-5 text-gray-700"/>
                 <Link
-                    className="w-11" to={LOGIN_ROUTE}
+                    className="w-11" to={PROFILE_EDIT_PAGE_ROUTE}
                 >
                     <img src={userIconImg} alt=""/>
                 </Link>
