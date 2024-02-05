@@ -49,13 +49,13 @@ export const questionSlice = createSlice({
             })
             .addCase(fetchQuestions.fulfilled, (state, action) => {
                 questionAdapter.setAll(state, action.payload);
-                state.status = 'idle';
+                state.status = 'succeeded';
             })
     }
 })
 // export const {selectQuestionById, selectQuestionsByTestId} = questionSlice.selectors;
 
-export const {selectAll: selectTests, selectById: selectQuestionById} =
+export const {selectAll: selectQuestions, selectById: selectQuestionById} =
     questionAdapter.getSelectors((state: RootState) => state.questionReducer)
 
 const selectTestsAction = (state: RootState) => state.questionReducer.entities

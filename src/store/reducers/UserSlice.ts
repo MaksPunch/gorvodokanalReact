@@ -5,10 +5,11 @@ import {RootState} from "../store.ts";
 
 const userAdapter = createEntityAdapter<IUser>();
 
-const initialState = userAdapter.getInitialState<{ status: string, entities: IUser[], userId: number }>({
+const initialState = userAdapter.getInitialState<{ status: string, entities: IUser[], userId: number, role: "ADMIN" | "USER" }>({
     status: 'idle',
     entities: [],
-    userId: 1
+    userId: 1,
+    role: "ADMIN"
 })
 
 export const fetchUsers = createAsyncThunk(
@@ -43,7 +44,7 @@ export const userSlice = createSlice({
             })
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 userAdapter.setAll(state, action.payload)
-                state.status = 'idle'
+                state.status = 'succeeded'
             })
     }
 })

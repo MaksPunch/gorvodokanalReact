@@ -17,11 +17,24 @@ export default function ResultPage() {
     const answers = useAppSelector(selectAnswersByTestId(section?.testId))
     const questions = useAppSelector(selectQuestionsByTestId(section?.testId))
     const [rightAnswers, setRightAnswers] = useState<number>(0)
+    const {status: sectionStatus} = useAppSelector(state => state.sectionReducer)
+    const {status: answerStatus} = useAppSelector(state => state.answerReducer)
+    const {status: testStatus} = useAppSelector(state => state.testReducer)
+    const {status: questionStatus} = useAppSelector(state => state.questionReducer)
     useEffect(() => {
-        dispatch(fetchTests())
-        dispatch(fetchSections())
-        dispatch(fetchAnswers());
-        dispatch(fetchQuestions());
+
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections())
+        }
+        if (testStatus === 'idle') {
+            dispatch(fetchTests())
+        }
+        if (answerStatus === 'idle') {
+            dispatch(fetchAnswers());
+        }
+        if (questionStatus === 'idle') {
+            dispatch(fetchQuestions());
+        }
 
         if (answers) {
             let rightAnswersCount = 0;

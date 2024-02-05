@@ -42,7 +42,13 @@ export const courseSlice = createSlice({
         }),
         toggleSidebar(state) {
             state.sidebarOpen = !state.sidebarOpen;
-        }
+        },
+        setCourseName: create.reducer<{courseId: number, name: string}>((state, action) => {
+            const sections = courseAdapter.getSelectors().selectAll(state);
+            const section = sections.find((el) => el.id === action.payload.courseId);
+            if (!section) throw new Error('not found');
+            courseAdapter.updateOne(state, {id: action.payload.courseId, changes: {name: action.payload.name}})
+        })
     }),
     extraReducers: builder => {
         builder
@@ -51,12 +57,12 @@ export const courseSlice = createSlice({
             })
             .addCase(fetchCourses.fulfilled, (state, action) => {
                 courseAdapter.setAll(state, action.payload);
-                state.status = 'idle';
+                state.status = 'succeeded';
             })
     }
 })
 
-export const {changeCourse, toggleSidebar} = courseSlice.actions;
+export const {changeCourse, toggleSidebar, setCourseName} = courseSlice.actions;
 
 export const {selectAll: selectCourses, selectById: selectCourseById} =
     courseAdapter.getSelectors((state: RootState) => state.courseReducer)

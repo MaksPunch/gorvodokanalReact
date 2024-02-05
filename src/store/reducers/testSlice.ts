@@ -32,12 +32,12 @@ export const testSlice = createSlice({
             })
             .addCase(fetchTests.fulfilled, (state, action) => {
                 testAdapter.setAll(state, action.payload);
-                state.status = 'idle'
+                state.status = 'succeeded'
             })
     }
 });
 
 export const {selectAll: selectTests, selectById: selectTestById} =
-    testAdapter.getSelectors((state: RootState) => state.sectionReducer)
+    testAdapter.getSelectors((state: RootState) => state.testReducer)
 
 export default testSlice.reducer;

@@ -9,13 +9,18 @@ import {classNames} from "../utils/classNames.ts";
 
 const SidebarWithSections = () => {
     const dispatch = useAppDispatch()
-    const {courseId, sidebarOpen} = useAppSelector(state => state.courseReducer);
-    const {sectionId} = useAppSelector(state => state.sectionReducer);
+    const {courseId, sidebarOpen, status: courseStatus} = useAppSelector(state => state.courseReducer);
+    const {sectionId, status: sectionStatus} = useAppSelector(state => state.sectionReducer);
     const course = useAppSelector(state => selectCourseById(state, courseId))
     const sections = useAppSelector(selectSectionsByCourseId(courseId));
     useEffect(() => {
-        dispatch(fetchCourses());
-        dispatch(fetchSections())
+        if (courseStatus === 'idle') {
+            dispatch(fetchCourses());
+        }
+
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections())
+        }
     }, [courseId]);
 
     return (

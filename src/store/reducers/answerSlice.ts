@@ -121,7 +121,6 @@ export const answerSlice = createSlice({
             const answers = answerAdapter.getSelectors().selectAll(state)
             const answer = answers.find(el => el.id === action.payload)
             const selectedAnswer = answers.find(el => el.selected && el.questionId === answer?.questionId);
-            console.log(selectedAnswer, answer)
             if (selectedAnswer) {
                 answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {selected: false}});
             }
@@ -135,7 +134,7 @@ export const answerSlice = createSlice({
             })
             .addCase(fetchAnswers.fulfilled, (state, action) => {
                 answerAdapter.setAll(state, action.payload)
-                state.status = 'idle'
+                state.status = 'succeeded'
             })
     }
 })

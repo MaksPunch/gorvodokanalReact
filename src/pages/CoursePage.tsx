@@ -15,11 +15,15 @@ type Params = 'courseId'
 
 const CoursePage = () => {
     const {courseId} = useParams<Params>();
-
-
+    const {status: sectionStatus} = useAppSelector(state => state.sectionReducer)
+    const {status: courseStatus} = useAppSelector(state => state.courseReducer)
     useEffect(() => {
-        dispatch(fetchCourses());
-        dispatch(fetchSections());
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections());
+        }
+        if (courseStatus === 'idle') {
+            dispatch(fetchCourses());
+        }
         dispatch(changeCourse(Number(courseId)));
         dispatch(changeSection(0));
     }, [courseId]);

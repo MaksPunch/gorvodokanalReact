@@ -16,8 +16,11 @@ const CourseBlock = ({name, progress, id, className}: propTypes) => {
     let sectionsEnding = "тем";
     const dispatch = useAppDispatch();
     const sectionsQuantity = useAppSelector(getSectionsQuantityFromCourse(id));
+    const {status: sectionStatus} = useAppSelector(state => state.sectionReducer);
     useEffect(() => {
-        dispatch(fetchSections());
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections());
+        }
     }, []);
     if (sectionsQuantity) {
         if (sectionsQuantity%10 === 1) {

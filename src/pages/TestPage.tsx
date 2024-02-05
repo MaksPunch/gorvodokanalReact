@@ -25,11 +25,19 @@ const TestPage = () => {
     const section = useAppSelector((state) => selectSectionById(state, Number(sectionId)));
     const questions = useAppSelector(selectQuestionsByTestId(section?.testId))
     const question = useAppSelector(state => selectQuestionById(state, Number(questionId)))
-
+    const {status: sectionStatus} = useAppSelector(state => state.sectionReducer)
+    const {status: questionStatus} = useAppSelector(state => state.questionReducer)
+    const {status: answerStatus} = useAppSelector(state => state.answerReducer)
     useEffect(() => {
-        dispatch(fetchAnswers());
-        dispatch(fetchQuestions());
-        dispatch(fetchSections())
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections())
+        }
+        if (questionStatus === 'idle') {
+            dispatch(fetchQuestions());
+        }
+        if (answerStatus === 'idle') {
+            dispatch(fetchAnswers());
+        }
 
         dispatch(changeSection(Number(sectionId)));
     }, [sectionId]);

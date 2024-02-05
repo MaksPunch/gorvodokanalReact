@@ -1,14 +1,12 @@
 import Homepage from "./pages/Homepage.tsx";
 import TestPageAdmin from "./pages/admin/TestPageAdmin.tsx";
 import SectionPageAdmin from "./pages/admin/SectionPageAdmin.tsx";
-import CoursePageAdmin from "./pages/admin/CoursePageAdmin.tsx";
 import SectionPage from "./pages/SectionPage.tsx";
 import Login from "./pages/Login.tsx";
 import CoursePage from "./pages/CoursePage.tsx";
 import TestPage from "./pages/TestPage.tsx";
 import {
-  COURSE_PAGE_ADMIN_ROUTE,
-  COURSE_PAGE_ROUTE,
+  COURSE_PAGE_ROUTE, COURSES_PAGE_ADMIN_ROUTE,
   COURSES_PAGE_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE, PROFILE_EDIT_PAGE_ROUTE,
@@ -20,6 +18,7 @@ import {
 import CoursesPage from "./pages/CoursesPage.tsx";
 import ResultPage from "./pages/ResultPage.tsx";
 import ProfileEdit from "./pages/ProfileEdit.tsx";
+import CoursesPageAdmin from "./pages/admin/CoursesPageAdmin.tsx";
 
 export const adminRoutes = [
   {
@@ -27,12 +26,12 @@ export const adminRoutes = [
     element: TestPageAdmin,
   },
   {
-    path: SECTION_PAGE_ADMIN_ROUTE + "/:id",
+    path: SECTION_PAGE_ADMIN_ROUTE + "/:sectionId",
     element: SectionPageAdmin,
   },
   {
-    path: COURSE_PAGE_ADMIN_ROUTE + "/:id",
-    element: CoursePageAdmin,
+    path: COURSES_PAGE_ADMIN_ROUTE,
+    element: CoursesPageAdmin,
   },
 ];
 

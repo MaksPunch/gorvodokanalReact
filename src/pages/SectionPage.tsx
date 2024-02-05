@@ -11,14 +11,18 @@ const SectionPage = () => {
     const {id} = useParams<'id'>();
     const dispatch = useAppDispatch();
     const section = useAppSelector((state) => selectSectionById(state, Number(id)));
+    const {status: sectionStatus} = useAppSelector(state => state.sectionReducer)
     useEffect(() => {
-        dispatch(fetchSections());
+        if (sectionStatus === 'idle') {
+            dispatch(fetchSections());
+        }
     }, []);
 
     useEffect(() => {
         dispatch(changeSection(Number(id)));
         dispatch(changeCourse(section?.courseId));
     }, [id]);
+
     return (
         <div className="main-wrapper flex flex-col gap-12">
             <div className="flex justify-between items-center">
@@ -27,7 +31,7 @@ const SectionPage = () => {
             </div>
             <div className="section-container flex flex-col gap-7">
                 <h1>{section?.name}</h1>
-                <div className="section-content">{section?.content}</div>
+                <div className="section-content ck-content" dangerouslySetInnerHTML={{__html: section?.content}}></div>
             </div>
             <Link to={SECTION_PAGE_ROUTE + '/' + id + TEST_PAGE_ROUTE + "/1"} className="self-end text-sm px-4 py-2 rounded border border-black border-opacity-25 flex justify-center items-center gap-2.5">
                 Дальше <img src={arrowRight} alt="стрелка" className="size-3"/>

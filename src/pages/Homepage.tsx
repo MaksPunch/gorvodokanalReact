@@ -13,8 +13,11 @@ import {useEffect} from "react";
 const Homepage = () => {
     const courses = useAppSelector(state => selectCourses(state))
     const dispatch = useAppDispatch();
+    const {status: courseStatus} = useAppSelector(state => state.courseReducer)
     useEffect(() => {
-        dispatch(fetchCourses())
+        if (courseStatus === 'idle') {
+            dispatch(fetchCourses())
+        }
     }, []);
     return (
         <div className="main-wrapper">

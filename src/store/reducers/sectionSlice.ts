@@ -72,6 +72,18 @@ export const sectionSlice = createSlice({
     reducers: (create) => ({
         changeSection: create.reducer<number>((state, action) => {
             state.sectionId = action.payload;
+        }),
+        setSectionContent: create.reducer<{sectionId: number, content: string}>((state, action) => {
+            const sections = sectionsAdapter.getSelectors().selectAll(state);
+            const section = sections.find((el) => el.id === action.payload.sectionId);
+            if (!section) throw new Error('not found');
+            sectionsAdapter.updateOne(state, {id: action.payload.sectionId, changes: {content: action.payload.content}})
+        }),
+        setSectionName: create.reducer<{sectionId: number, name: string}>((state, action) => {
+            const sections = sectionsAdapter.getSelectors().selectAll(state);
+            const section = sections.find((el) => el.id === action.payload.sectionId);
+            if (!section) throw new Error('not found');
+            sectionsAdapter.updateOne(state, {id: action.payload.sectionId, changes: {name: action.payload.name}})
         })
     }),
     extraReducers: builder => {
@@ -81,7 +93,7 @@ export const sectionSlice = createSlice({
             })
             .addCase(fetchSections.fulfilled, (state, action) => {
                 sectionsAdapter.setAll(state, action.payload)
-                state.status = 'idle'
+                state.status = 'succeeded'
             })
     }
 })
@@ -89,7 +101,7 @@ export const sectionSlice = createSlice({
 
 export default sectionSlice.reducer;
 
-export const {changeSection} = sectionSlice.actions
+export const {changeSection, setSectionContent, setSectionName} = sectionSlice.actions
 
 export const {selectAll: selectSections, selectById: selectSectionById} =
     sectionsAdapter.getSelectors((state: RootState) => state.sectionReducer)

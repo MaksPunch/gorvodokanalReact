@@ -8,9 +8,12 @@ const ProfileEdit = () => {
     const dispatch = useAppDispatch();
     const {userId} = useAppSelector(state => state.userReducer);
     const user = useAppSelector(state => selectUserById(state, userId));
+    const {status: userStatus} = useAppSelector(state => state.userReducer)
 
     useEffect(() => {
-        dispatch(fetchUsers())
+        if (userStatus === 'idle') {
+            dispatch(fetchUsers())
+        }
     }, []);
 
     function getImgUrl(name: string) {
