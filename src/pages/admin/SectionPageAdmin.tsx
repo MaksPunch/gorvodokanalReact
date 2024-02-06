@@ -15,6 +15,8 @@ import MySelect from "../../components/MySelect.tsx";
 import MyButton from "../../components/MyButton.tsx";
 import Pagination from "../../components/Pagination.tsx";
 import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
+import {PlusIcon} from "@heroicons/react/24/outline";
+
 
 const SectionPageAdmin = () => {
     const {sectionId} = useParams<'sectionId'>()
@@ -76,8 +78,11 @@ const SectionPageAdmin = () => {
                     }}
                 />
             </div>
-            <div className="flex justify-between items-center">
-                <Pagination/>
+            <div className="flex justify-between items-center gap-3 max-sm:flex-wrap">
+                <div className="flex gap-2 items-end">
+                    <Pagination/>
+                    <button className="rounded border border-black border-opacity-25 px-1 py-1.5 shadow"><PlusIcon className="size-6"/></button>
+                </div>
                 <div className="flex gap-7 items-center">
                     <MyButton className="text-sm" onClick={() => saveSection()}>Сохранить</MyButton>
                     <button

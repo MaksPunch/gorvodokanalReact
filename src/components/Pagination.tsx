@@ -3,19 +3,26 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 export default function Pagination() {
     return (
         <div className="flex items-center justify-between border-gray-200 bg-white">
-            <div className="flex flex-1 justify-between sm:hidden">
-                <a
-                    href="#"
-                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                    Previous
-                </a>
-                <a
-                    href="#"
-                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                    Next
-                </a>
+            <div className="flex flex-col gap-1 sm:hidden">
+                <p className="text-sm text-gray-700">
+                    <span className="font-medium">1</span> из {" "}
+                    <span className="font-medium">3</span> {" "}
+                    страниц
+                </p>
+                <div className="flex flex-1 justify-between sm:hidden">
+                    <a
+                        href="#"
+                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                        Предыдущая
+                    </a>
+                    <a
+                        href="#"
+                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                        Следующая
+                    </a>
+                </div>
             </div>
             <div className="hidden gap-3 sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>

@@ -116,6 +116,13 @@ h2 {
     overflow-y: auto;
 }
 
+/* Отключение Powered By в CKEditor */
 .ck.ck-balloon-panel {
     display: none !important;
+}
+
+@media screen and (max-width: 960px) {
+    .main-wrapper {
+        width: 98%;
+    }
 }
