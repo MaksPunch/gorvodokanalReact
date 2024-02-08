@@ -17,7 +17,6 @@ import Pagination from "../../components/Pagination.tsx";
 import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
 import {PlusIcon} from "@heroicons/react/24/outline";
 
-
 const SectionPageAdmin = () => {
     const {sectionId} = useParams<'sectionId'>()
     const dispatch = useAppDispatch()

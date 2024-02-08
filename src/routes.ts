@@ -13,12 +13,13 @@ import {
   SECTION_PAGE_ADMIN_ROUTE,
   SECTION_PAGE_ROUTE,
   TEST_PAGE_ADMIN_ROUTE,
-  TEST_PAGE_ROUTE,
+  TEST_PAGE_ROUTE, TESTS_PAGE_ADMIN_ROUTE,
 } from "./utils/consts.ts";
 import CoursesPage from "./pages/CoursesPage.tsx";
 import ResultPage from "./pages/ResultPage.tsx";
 import ProfileEdit from "./pages/ProfileEdit.tsx";
 import CoursesPageAdmin from "./pages/admin/CoursesPageAdmin.tsx";
+import TestsPageAdmin from "./pages/admin/TestsPageAdmin.tsx";
 
 export const adminRoutes = [
   {
@@ -33,6 +34,10 @@ export const adminRoutes = [
     path: COURSES_PAGE_ADMIN_ROUTE,
     element: CoursesPageAdmin,
   },
+  {
+    path: TESTS_PAGE_ADMIN_ROUTE,
+    element: TestsPageAdmin
+  }
 ];
 
 export const userRoutes = [

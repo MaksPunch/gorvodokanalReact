@@ -1,9 +1,13 @@
 import {Link, useLocation} from "react-router-dom";
 import {
     COURSES_PAGE_ADMIN_ROUTE,
-    COURSES_PAGE_ROUTE, DEPARTMENT_EDIT_ADMIN_ROUTE,
+    COURSES_PAGE_ROUTE,
+    DEPARTMENT_EDIT_ADMIN_ROUTE,
     HOME_ROUTE,
-    PROFILE_EDIT_PAGE_ROUTE, TEST_PAGE_ADMIN_ROUTE, USER_EDIT_ADMIN_ROUTE, USER_PROGRESS_ADMIN_ROUTE
+    PROFILE_EDIT_PAGE_ROUTE,
+    TESTS_PAGE_ADMIN_ROUTE,
+    USER_EDIT_ADMIN_ROUTE,
+    USER_PROGRESS_ADMIN_ROUTE
 } from "../utils/consts.ts";
 import logo from '../public/img/logo.png'
 import userIconImg from '../public/img/User.png'
@@ -18,7 +22,7 @@ const coursesPopUp = [
         label: 'Редактирование курсов'
     },
     {
-        to: TEST_PAGE_ADMIN_ROUTE,
+        to: TESTS_PAGE_ADMIN_ROUTE,
         label: 'Редактирование тестов'
     }
 ]
