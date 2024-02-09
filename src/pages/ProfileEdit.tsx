@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
-import { fetchUsers, selectUserById } from "../store/reducers/UserSlice.ts";
+import { fetchUsers, selectUserById } from "../store/reducers/userSlice.ts";
 import { useEffect } from "react";
 import MyButton from "../components/MyButton.tsx";
 import MyInput from "../components/MyInput.tsx";

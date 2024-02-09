@@ -16,6 +16,7 @@ import MyButton from "../../components/MyButton.tsx";
 import Pagination from "../../components/Pagination.tsx";
 import { fetchTests, selectTests } from "../../store/reducers/testSlice.ts";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import {setAlertClassName, setAlertContent, setAlertOpen} from "../../store/reducers/alertSlice.ts";
 
 const SectionPageAdmin = () => {
   const { sectionId } = useParams<"sectionId">();
@@ -61,6 +62,10 @@ const SectionPageAdmin = () => {
         name,
       }),
     );
+
+    dispatch(setAlertOpen());
+    dispatch(setAlertContent('Успешно сохранено'))
+    dispatch(setAlertClassName('bg-green-500 text-white'))
   }
 
   return (

@@ -47,7 +47,7 @@ const Header = () => {
   const { role } = useAppSelector((state) => state.userReducer);
 
   return (
-    <header className="py-4 sticky header top-0">
+    <header className="py-4 sticky header top-0 z-10">
       <div className="header-wrapper flex items-center justify-between relative mx-auto">
         <div className="flex items-center justify-center gap-10">
           <Link to={HOME_ROUTE}>

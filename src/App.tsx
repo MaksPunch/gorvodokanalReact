@@ -5,6 +5,7 @@ import Header from "./components/Header.tsx";
 import SidebarWithSections from "./components/SidebarWithSections.tsx";
 import OpenSidebarButton from "./components/OpenSidebarButton.tsx";
 import {useAppSelector} from "./hooks/redux.ts";
+import Alert from "./components/Alert.tsx";
 
 function App() {
     const {courseId} = useAppSelector(state => state.courseReducer);
@@ -18,7 +19,7 @@ function App() {
                     <SidebarWithSections/>
                 </div> : ""
             }
-
+            <Alert/>
             <AppRouter/>
         </BrowserRouter>
     )

@@ -14,6 +14,7 @@ import {
   setCourseName,
 } from "../../store/reducers/courseSlice.ts";
 import MyButton from "../MyButton.tsx";
+import {setAlertClassName, setAlertContent, setAlertOpen} from "../../store/reducers/alertSlice.ts";
 
 const CoursesSidebar = ({
   courseId,
@@ -43,6 +44,10 @@ const CoursesSidebar = ({
 
   function saveCourse() {
     dispatch(setCourseName({ courseId, name }));
+
+    dispatch(setAlertOpen());
+    dispatch(setAlertContent('Успешно сохранено'))
+    dispatch(setAlertClassName('bg-green-500 text-white'))
   }
 
   useEffect(() => {
@@ -66,7 +71,7 @@ const CoursesSidebar = ({
     <div
       ref={sideBarRef}
       className={classNames(
-        "fixed right-0 top-0 h-svh w-96 bg-white sidebar text-black z-40 flex flex-col gap-2.5 px-4 py-6",
+        "fixed right-0 top-0 h-svh w-96 bg-white sidebar text-black z-10 flex flex-col gap-2.5 px-4 py-6",
         sidebarOpen ? "" : "translate-x-96",
       )}
     >

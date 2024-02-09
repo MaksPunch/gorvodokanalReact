@@ -3,7 +3,7 @@ import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {HOME_ROUTE} from "../utils/consts.ts";
 import {useAppDispatch} from "../hooks/redux.ts";
-import {changeUser} from "../store/reducers/UserSlice.ts";
+import {changeUser} from "../store/reducers/userSlice.ts";
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');

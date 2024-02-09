@@ -4,7 +4,8 @@ import sectionReducer from "./reducers/sectionSlice.ts";
 import testReducer from "./reducers/testSlice.ts";
 import answerReducer from "./reducers/answerSlice.ts";
 import questionReducer from "./reducers/questionSlice.ts";
-import userReducer from "./reducers/UserSlice.ts";
+import userReducer from "./reducers/userSlice.ts";
+import alertReducer from "./reducers/alertSlice.ts";
 
 const rootReducer = combineReducers({
     courseReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     testReducer,
     answerReducer,
     questionReducer,
-    userReducer
+    userReducer,
+    alertReducer
 })
 
 export const setupStore = () => {
