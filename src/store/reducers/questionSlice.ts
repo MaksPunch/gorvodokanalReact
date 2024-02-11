@@ -44,7 +44,9 @@ export const questionSlice = createSlice({
     reducers: (create) => ({
         selectQuestionType: create.reducer<{questionId: number, type: string}>((state, action) => {
             questionAdapter.updateOne(state, {id: action.payload.questionId, changes: {type: action.payload.type}})
-        })
+        }),
+        removeOneQuestion: questionAdapter.removeOne,
+        addOneQuestion: questionAdapter.addOne
     }),
     extraReducers: builder => {
         builder
@@ -59,7 +61,7 @@ export const questionSlice = createSlice({
 })
 // export const {selectQuestionById, selectQuestionsByTestId} = questionSlice.selectors;
 
-export const {selectQuestionType} = questionSlice.actions;
+export const {selectQuestionType, removeOneQuestion, addOneQuestion} = questionSlice.actions;
 
 export const {selectAll: selectQuestions, selectById: selectQuestionById} =
     questionAdapter.getSelectors((state: RootState) => state.questionReducer)

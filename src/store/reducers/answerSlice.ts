@@ -144,6 +144,13 @@ export const answerSlice = createSlice({
             } else {
                 answerAdapter.updateOne(state, {id: action.payload.id, changes: {rightAnswer: true}})
             }
+        }),
+        addOneAnswer: answerAdapter.addOne,
+        changeAnswerName: create.reducer<{ answerId: number, name: string }>((state, action) => {
+            answerAdapter.updateOne(state, {id: action.payload.answerId, changes: {answer: action.payload.name}})
+        }),
+        removeOneAnswer: create.reducer<number>((state, action) => {
+            answerAdapter.removeOne(state, action.payload);
         })
     }),
     extraReducers: builder => {
@@ -158,7 +165,7 @@ export const answerSlice = createSlice({
     }
 })
 
-export const {selectAnswer, selectRightAnswer} = answerSlice.actions;
+export const {selectAnswer, selectRightAnswer, addOneAnswer, changeAnswerName, removeOneAnswer} = answerSlice.actions;
 
 export const {selectAll: selectAnswers, selectById: selectAnswerById} =
     answerAdapter.getSelectors((state: RootState) => state.answerReducer)

@@ -5,14 +5,16 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {fetchTests, selectTestById} from "../../store/reducers/testSlice";
 import {useEffect, useMemo, useState} from "react";
 import {
-    fetchQuestions,
+    addOneQuestion,
+    fetchQuestions, removeOneQuestion,
     selectQuestionsByTestId, selectQuestionType,
 } from "../../store/reducers/questionSlice";
 import {ChevronRightIcon, PlusCircleIcon} from "@heroicons/react/24/outline";
 import TextareaAutosize from 'react-textarea-autosize';
 import MyRadio from "../../components/MyRadio.tsx";
-import AnswersList from "../../components/AnswersList.tsx";
+import AnswersList from "../../components/admin/AnswersList.tsx";
 import {
+    addOneAnswer,
     fetchAnswers,
     selectAnswers,
     selectRightAnswer
@@ -72,6 +74,20 @@ const TestPageAdmin = () => {
         dispatch(selectQuestionType({questionId, type}));
     }
 
+    function removeQuestion(questionId: number) {
+        dispatch(removeOneQuestion(questionId));
+    }
+
+    function addAnswer(questionId: number) {
+        const lastAnswer = answers[answers.length - 1]
+        dispatch(addOneAnswer({answer: "", testId: Number(testId), rightAnswer: false, questionId, selected: false, id: lastAnswer.id + 1}))
+    }
+
+    function addQuestion() {
+        const lastQuestion = questions[questions.length - 1];
+        dispatch(addOneQuestion({id: lastQuestion.id + 1, name: "", type: "radio", testId: Number(testId), done: false}));
+    }
+
     return (
         <div className="main-wrapper">
             <div className="flex justify-between mb-7">
@@ -90,7 +106,7 @@ const TestPageAdmin = () => {
                 <div className="flex flex-col gap-3">
                     <div className="flex gap-3 items-center">
                         <h2>Вопросы</h2>
-                        <PlusCircleIcon className="size-6 stroke-blue-600 cursor-pointer"/>
+                        <PlusCircleIcon className="size-6 stroke-blue-600 cursor-pointer" onClick={() => addQuestion()}/>
                     </div>
                 </div>
                 {questions.map((question) => {
@@ -113,10 +129,10 @@ const TestPageAdmin = () => {
                         <div className="flex flex-col gap-5 p-4 border border-opacity-50 border-black rounded"
                              key={question.id}>
                             <div className="flex flex-col gap-2.5">
-                                <div className="flex">
+                                <div className="flex gap-4 items-center">
                                     <TextareaAutosize
                                         value={questionsCopy[question.id].name}
-                                        className="border-0 p-0 rounded w-full resize-none height-6 max-height-10"
+                                        className="border-0 rounded w-full resize-none bg-gray-100 py-1 px-2"
                                         onChange={(e) =>
                                             setQuestionsCopy({
                                                 ...questionsCopy,
@@ -152,6 +168,10 @@ const TestPageAdmin = () => {
                                 Варианты ответов:
                             </p>
                             <AnswersList type={question.type} questionId={question.id}/>
+                            <div className="flex justify-between items-center">
+                                {question.type ? <MyButton onClick={() => addAnswer(question.id)}>Добавить вариант ответа</MyButton> : ""}
+                                <button className="bg-red-500 px-4 py-2 rounded text-white" onClick={() => removeQuestion(question.id)}>Удалить вопрос</button>
+                            </div>
                         </div>
                     )
                 })}
