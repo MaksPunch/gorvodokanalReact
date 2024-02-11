@@ -80,8 +80,8 @@ const TestPage = () => {
     typeText = "Напишите слово или словосочетание";
   }
 
-  function selectAnswerFunction(answerId: number) {
-    dispatch(selectAnswer(answerId));
+  function selectAnswerFunction(answerId: number | string) {
+    dispatch(selectAnswer(Number(answerId)));
   }
 
   return (
@@ -108,6 +108,7 @@ const TestPage = () => {
                         name={"question_" + question.id}
                         selectAnswer={selectAnswerFunction}
                         selected={selected}
+                        id={id.toString()}
                       />
                     ))
                   : ""}

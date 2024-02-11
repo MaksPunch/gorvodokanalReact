@@ -40,6 +40,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
+    "react-textarea-autosize": "^8.5.3",
     "redux": "^5.0.1",
     "vite-plugin-make-offline": "^1.0.0"
   },

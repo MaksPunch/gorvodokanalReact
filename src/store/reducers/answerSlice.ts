@@ -125,6 +125,25 @@ export const answerSlice = createSlice({
                 answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {selected: false}});
             }
             answerAdapter.updateOne(state, {id: action.payload, changes: {selected: true}})
+        }),
+        selectRightAnswer: create.reducer<{ id: number, type: string, changeType?: boolean }>((state, action) => {
+            const answers = answerAdapter.getSelectors().selectAll(state)
+            const answer = answers.find(el => el.id === action.payload.id)
+            const selectedAnswers = answers.filter(el => el.rightAnswer && el.questionId === answer?.questionId);
+            if (selectedAnswers && (
+                    action.payload.type === 'radio' ||
+                    (action.payload.type === 'checkbox' && action.payload.changeType)
+                )
+            ) {
+                for (const selectedAnswer of selectedAnswers) {
+                    answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {rightAnswer: false}})
+                }
+            }
+            if (answer?.rightAnswer && action.payload.type === 'checkbox' && !action.payload.changeType) {
+                answerAdapter.updateOne(state, {id: answer.id, changes: {rightAnswer: false}});
+            } else {
+                answerAdapter.updateOne(state, {id: action.payload.id, changes: {rightAnswer: true}})
+            }
         })
     }),
     extraReducers: builder => {
@@ -139,7 +158,7 @@ export const answerSlice = createSlice({
     }
 })
 
-export const {selectAnswer} = answerSlice.actions;
+export const {selectAnswer, selectRightAnswer} = answerSlice.actions;
 
 export const {selectAll: selectAnswers, selectById: selectAnswerById} =
     answerAdapter.getSelectors((state: RootState) => state.answerReducer)

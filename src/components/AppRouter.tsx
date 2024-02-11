@@ -16,7 +16,7 @@ const AppRouter = () => {
             dispatch(changeCourse(0));
             dispatch(changeSection(0));
         }
-    }, [location]);
+    }, [dispatch, location]);
     return (
         <Routes>
             {!userId ? publicRoutes.map(({path, element}) =>

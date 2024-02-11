@@ -41,7 +41,11 @@ export const fetchQuestions = createAsyncThunk(
 export const questionSlice = createSlice({
     name: 'questionSlice',
     initialState,
-    reducers: {},
+    reducers: (create) => ({
+        selectQuestionType: create.reducer<{questionId: number, type: string}>((state, action) => {
+            questionAdapter.updateOne(state, {id: action.payload.questionId, changes: {type: action.payload.type}})
+        })
+    }),
     extraReducers: builder => {
         builder
             .addCase(fetchQuestions.pending, (state) => {
@@ -54,6 +58,8 @@ export const questionSlice = createSlice({
     }
 })
 // export const {selectQuestionById, selectQuestionsByTestId} = questionSlice.selectors;
+
+export const {selectQuestionType} = questionSlice.actions;
 
 export const {selectAll: selectQuestions, selectById: selectQuestionById} =
     questionAdapter.getSelectors((state: RootState) => state.questionReducer)
