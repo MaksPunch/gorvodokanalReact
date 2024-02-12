@@ -21,6 +21,7 @@ import {
     selectSectionById,
 } from "../store/reducers/sectionSlice.ts";
 import {changeCourse} from "../store/reducers/courseSlice.ts";
+import MyCheckbox from "../components/MyCheckbox.tsx";
 
 const TestPage = () => {
     const {questionId, sectionId} = useParams<"questionId" | "sectionId">();
@@ -82,9 +83,10 @@ const TestPage = () => {
         typeText = "Напишите слово или словосочетание";
     }
 
-    function selectAnswerFunction(answerId: number | string) {
-        dispatch(selectAnswer(Number(answerId)));
+    function selectAnswerFunction(answerId: number | string, type: string) {
+        dispatch(selectAnswer({answerId: Number(answerId), type}));
     }
+
 
     return (
         <div>
@@ -102,25 +104,36 @@ const TestPage = () => {
                             </div>
                             <div className="flex flex-col gap-4">
                                 {question?.type === "radio" && answersForQuestion
-                                    ? answersForQuestion.map(({answer, id, selected}) => (
-                                        <MyRadio
-                                            key={id}
-                                            label={answer}
-                                            value={id}
-                                            name={"question_" + question.id}
-                                            selectAnswer={selectAnswerFunction}
-                                            selected={selected}
-                                            id={id.toString()}
-                                        />
-                                    ))
+                                    ? answersForQuestion.map(({answer, id, selected, type}) => {
+                                        return (
+                                            (type === 'text' ? "" : <MyRadio
+                                                key={id}
+                                                label={answer}
+                                                value={id}
+                                                name={"question_" + question.id}
+                                                selectAnswer={selectAnswerFunction}
+                                                selected={selected}
+                                                id={id.toString()}
+                                            />)
+                                        )
+                                    })
                                     : ""}
-                                {/*{question.type === 'checkbox' && question.answers ?*/}
-                                {/*    question.answers?.map(({answer, id}) =>*/}
-                                {/*        <MyCheckbox key={id} label={answer} value={id} name={"question_" + question.id}/>*/}
-                                {/*    )*/}
-                                {/*    :*/}
-                                {/*    ""*/}
-                                {/*}*/}
+                                {question?.type === "checkbox" && answersForQuestion ?
+                                    answersForQuestion.map(({answer, id, selected, type}) => {
+                                        return (type === 'text' ? "" : <MyCheckbox
+                                                key={id}
+                                                label={answer}
+                                                value={id}
+                                                name={"question_" + question.id}
+                                                selectAnswer={selectAnswerFunction}
+                                                selected={selected}
+                                                id={id.toString()}
+                                            />)
+                                        }
+                                    )
+                                    :
+                                    ""
+                                }
                                 {question?.type === "text" && answersForQuestion ? (
                                     <input
                                         type="text"

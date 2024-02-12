@@ -48,9 +48,12 @@ const AnswerEdit = ({id, type, questionId, rightAnswer, answer}: {
                 className={type === 'checkbox' ? "rounded" : ""}
             />
             {edit ?
-                <TextareaAutosize className="border-0 border-b p-0 px-1 resize-none w-full" ref={inputRef} value={answer}
-                                  onChange={(e) => changeName(id, e.target.value)}/> :
-                <label htmlFor={"answer_" + id} className="w-full">{answer}</label>}
+                <TextareaAutosize className="border-0 border-b p-0 px-1 resize-none w-full" ref={inputRef}
+                                  value={answer}
+                                  onChange={(e) => changeName(id, e.target.value)}/>
+                :
+                <label htmlFor={"answer_" + id} className="w-full">{answer}</label>
+            }
             <div className="w-full flex gap-4 items-center">
                 <PencilSquareIcon className="min-w-5 max-h-5 cursor-pointer" onClick={() => handleEdit()}/>
                 <XCircleIcon onClick={() => removeAnswer(id)} className="min-w-5 max-h-5 text-red-500 cursor-pointer"/>

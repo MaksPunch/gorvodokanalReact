@@ -5,6 +5,8 @@ export interface IAnswer {
   answer: string;
   selected: boolean;
   testId: number;
+  type?: "text";
+  userInput?: string
 }
 
 export interface IQuestion {

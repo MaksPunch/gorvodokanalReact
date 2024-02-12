@@ -16,7 +16,7 @@ export const fetchQuestions = createAsyncThunk(
             {
                 id: 1,
                 testId: 1,
-                type: "radio",
+                type: "checkbox",
                 name: "Что такое «сетевой этикет»?",
                 done: false,
             },

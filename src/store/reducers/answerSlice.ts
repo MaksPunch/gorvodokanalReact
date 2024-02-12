@@ -109,6 +109,36 @@ export const fetchAnswers = createAsyncThunk(
                 selected: false,
                 testId: 1
             },
+            {
+                id: 13,
+                answer: "Состав и последовательность выполняемых работ",
+                type: "text",
+                questionId: 1,
+                rightAnswer: true,
+                selected: false,
+                testId: 1,
+                userInput: ""
+            },
+            {
+                id: 14,
+                answer: "Состав и последовательность выполняемых работ",
+                type: "text",
+                questionId: 2,
+                rightAnswer: true,
+                selected: false,
+                testId: 1,
+                userInput: ""
+            },
+            {
+                id: 15,
+                answer: "Состав и последовательность выполняемых работ",
+                type: "text",
+                questionId: 3,
+                rightAnswer: true,
+                selected: false,
+                testId: 1,
+                userInput: ""
+            },
         ] as IAnswer[]
     }
 )
@@ -117,14 +147,14 @@ export const answerSlice = createSlice({
     name: "answerSlice",
     initialState,
     reducers: (create) => ({
-        selectAnswer: create.reducer<number>((state, action) => {
+        selectAnswer: create.reducer<{answerId: number, type: string}>((state, action) => {
             const answers = answerAdapter.getSelectors().selectAll(state)
-            const answer = answers.find(el => el.id === action.payload)
+            const answer = answers.find(el => el.id === action.payload.answerId)
             const selectedAnswer = answers.find(el => el.selected && el.questionId === answer?.questionId);
-            if (selectedAnswer) {
+            if (selectedAnswer && action.payload.type === 'radio' ) {
                 answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {selected: false}});
             }
-            answerAdapter.updateOne(state, {id: action.payload, changes: {selected: true}})
+            answerAdapter.updateOne(state, {id: action.payload.answerId, changes: {selected: true}})
         }),
         selectRightAnswer: create.reducer<{ id: number, type: string, changeType?: boolean }>((state, action) => {
             const answers = answerAdapter.getSelectors().selectAll(state)
@@ -139,6 +169,7 @@ export const answerSlice = createSlice({
                     answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {rightAnswer: false}})
                 }
             }
+
             if (answer?.rightAnswer && action.payload.type === 'checkbox' && !action.payload.changeType) {
                 answerAdapter.updateOne(state, {id: answer.id, changes: {rightAnswer: false}});
             } else {
@@ -182,6 +213,12 @@ export const selectAnswersByTestId = (testId: number) => {
     return createSelector(
         selectAnswersAction,
         (state) => Object.values(state).filter((el) => el.testId === testId)
+    )
+}
+export const selectTextAnswer = (questionId: number) => {
+    return createSelector(
+        selectAnswersAction,
+        (state) => Object.values(state).find((el) => el.questionId === questionId && el.type === 'text')
     )
 }
 

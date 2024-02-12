@@ -2,7 +2,7 @@ const MyRadio = ({label, value, name, selectAnswer, selected, id}: {
     label: string;
     value: (number | string);
     name: string;
-    selectAnswer: (value: (number | string)) => void;
+    selectAnswer: (value: (number | string), type: string) => void;
     selected: boolean;
     id: string;
 }) => {
@@ -13,7 +13,7 @@ const MyRadio = ({label, value, name, selectAnswer, selected, id}: {
                 type="radio"
                 value={value}
                 className="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600 checked:border-0"
-                onChange={() => selectAnswer(value)}
+                onChange={() => selectAnswer(value, "radio")}
                 defaultChecked={selected}
                 id={id}
             />
