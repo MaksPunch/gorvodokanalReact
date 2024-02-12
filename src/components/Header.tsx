@@ -11,10 +11,10 @@ import {
 } from "../utils/consts.ts";
 import logo from "../public/img/logo.png";
 import userIconImg from "../public/img/User.png";
-import { BellIcon } from "@heroicons/react/24/outline";
 import { classNames } from "../utils/classNames.ts";
 import { useAppSelector } from "../hooks/redux.ts";
 import HeaderPopUp from "./HeaderPopUp.tsx";
+import Notifications from "./Notifications.tsx";
 
 const coursesPopUp = [
   {
@@ -97,7 +97,7 @@ const Header = () => {
           )}
         </div>
         <div className="flex items-center gap-3">
-          <BellIcon className="size-6 text-gray-700" />
+          <Notifications/>
           <Link className="w-11" to={PROFILE_EDIT_PAGE_ROUTE}>
             <img src={userIconImg} alt="" />
           </Link>

@@ -84,7 +84,10 @@ export const sectionSlice = createSlice({
             const section = sections.find((el) => el.id === action.payload.sectionId);
             if (!section) throw new Error('not found');
             sectionsAdapter.updateOne(state, {id: action.payload.sectionId, changes: {name: action.payload.name}})
-        })
+        }),
+        createOneSection: sectionsAdapter.addOne,
+        removeOneSection: sectionsAdapter.removeOne,
+        removeManySections: sectionsAdapter.removeMany
     }),
     extraReducers: builder => {
         builder
@@ -101,7 +104,7 @@ export const sectionSlice = createSlice({
 
 export default sectionSlice.reducer;
 
-export const {changeSection, setSectionContent, setSectionName} = sectionSlice.actions
+export const {changeSection, setSectionContent, setSectionName, createOneSection, removeOneSection, removeManySections} = sectionSlice.actions
 
 export const {selectAll: selectSections, selectById: selectSectionById} =
     sectionsAdapter.getSelectors((state: RootState) => state.sectionReducer)

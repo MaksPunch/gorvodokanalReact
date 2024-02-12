@@ -24,7 +24,13 @@ export const fetchTests = createAsyncThunk(
 export const testSlice = createSlice({
     name: "testSlice",
     initialState,
-    reducers: {},
+    reducers: (create) => ({
+        createOneTest: testAdapter.addOne,
+        removeOneTest: testAdapter.removeOne,
+        setTestName: create.reducer<{testId: number, name: string}>((state, action) => {
+            testAdapter.updateOne(state, {id: action.payload.testId, changes: {name: action.payload.name}});
+        })
+    }),
     extraReducers: builder => {
         builder
             .addCase(fetchTests.pending, (state) => {
@@ -36,6 +42,8 @@ export const testSlice = createSlice({
             })
     }
 });
+
+export const {createOneTest, removeOneTest, setTestName} = testSlice.actions;
 
 export const {selectAll: selectTests, selectById: selectTestById} =
     testAdapter.getSelectors((state: RootState) => state.testReducer)

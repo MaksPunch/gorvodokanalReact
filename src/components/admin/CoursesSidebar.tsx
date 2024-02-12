@@ -2,7 +2,7 @@ import MyInput from "../MyInput.tsx";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import {
-  fetchSections,
+  fetchSections, removeManySections, removeOneSection, selectSections,
   selectSectionsByCourseId,
 } from "../../store/reducers/sectionSlice.ts";
 import { XMarkIcon, XCircleIcon } from "@heroicons/react/24/outline";
@@ -10,6 +10,7 @@ import { classNames } from "../../utils/classNames.ts";
 import { Link } from "react-router-dom";
 import { SECTION_PAGE_ADMIN_ROUTE } from "../../utils/consts.ts";
 import {
+  removeOne,
   selectCourseById,
   setCourseName,
 } from "../../store/reducers/courseSlice.ts";
@@ -29,6 +30,8 @@ const CoursesSidebar = ({
     useAppSelector((state) => selectCourseById(state, courseId))?.name || "";
   const [name, setName] = useState<string>(courseNameValue);
   const sections = useAppSelector(selectSectionsByCourseId(courseId));
+  const allSections = useAppSelector(state => selectSections(state));
+  const lastSection = allSections[allSections.length - 1];
   const { status: sectionStatus } = useAppSelector(
     (state) => state.sectionReducer,
   );
@@ -48,6 +51,13 @@ const CoursesSidebar = ({
     dispatch(setAlertOpen());
     dispatch(setAlertContent('Успешно сохранено'))
     dispatch(setAlertClassName('bg-green-500 text-white'))
+  }
+
+  function deleteCourse() {
+    const sectionsIds = sections.map(el => el.id);
+    setSidebarOpen(false);
+    dispatch(removeManySections(sectionsIds));
+    dispatch(removeOne(courseId));
   }
 
   useEffect(() => {
@@ -99,7 +109,7 @@ const CoursesSidebar = ({
           <div className="flex justify-between">
             <h2>Темы в курсе</h2>
             <Link
-              to={SECTION_PAGE_ADMIN_ROUTE}
+              to={SECTION_PAGE_ADMIN_ROUTE + '/' + ((lastSection?.id || 0) + 1) + "?courseId=" + courseId}
               className="text-blue-600 text-lg font-medium"
             >
               Создать тему
@@ -114,7 +124,7 @@ const CoursesSidebar = ({
                 >
                   {name}
                 </Link>
-                <XCircleIcon className="min-w-5 max-h-5 text-red-500 cursor-pointer" />
+                <XCircleIcon onClick={() => dispatch(removeOneSection(id))} className="min-w-5 max-h-5 text-red-500 cursor-pointer" />
               </div>
             ))}
           </div>
@@ -123,7 +133,7 @@ const CoursesSidebar = ({
           <MyButton className="text-sm" onClick={() => saveCourse()}>
             Сохранить
           </MyButton>
-          <button className="bg-red-600 px-5 py-2 text-sm text-white rounded hover:bg-red-700 transition-colors">
+          <button onClick={() => deleteCourse()} className="bg-red-600 px-5 py-2 text-sm text-white rounded hover:bg-red-700 transition-colors">
             Удалить курс
           </button>
         </div>

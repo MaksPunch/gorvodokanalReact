@@ -18,7 +18,7 @@ const Alert = () => {
     return (
         <div
             className={classNames(
-                "fixed right-80 top-24 w-fit h-12 px-4 rounded-md flex items-center justify-center gap-2 text-center border border-gray-300 border-opacity-50 cursor-pointer transition-opacity hover:bg-opacity-90 hover:transition-colors z-20",
+                "fixed right-12 top-3 w-fit h-12 px-4 rounded-md flex items-center justify-center gap-2 text-center border border-gray-300 border-opacity-50 cursor-pointer transition-opacity hover:bg-opacity-90 hover:transition-colors z-20",
                 className,
                 open ? "opacity-100" : "-translate-x-96 left-0 opacity-0"
             )}

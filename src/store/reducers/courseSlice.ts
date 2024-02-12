@@ -40,7 +40,7 @@ export const courseSlice = createSlice({
         changeCourse: create.reducer<number>((state, action) => {
             state.courseId = action.payload;
         }),
-        toggleSidebar(state) {
+        toggleSidebar: function(state) {
             state.sidebarOpen = !state.sidebarOpen;
         },
         setCourseName: create.reducer<{courseId: number, name: string}>((state, action) => {
@@ -48,7 +48,9 @@ export const courseSlice = createSlice({
             const section = sections.find((el) => el.id === action.payload.courseId);
             if (!section) throw new Error('not found');
             courseAdapter.updateOne(state, {id: action.payload.courseId, changes: {name: action.payload.name}})
-        })
+        }),
+        createOneCourse: courseAdapter.addOne,
+        removeOne: courseAdapter.removeOne
     }),
     extraReducers: builder => {
         builder
@@ -62,7 +64,7 @@ export const courseSlice = createSlice({
     }
 })
 
-export const {changeCourse, toggleSidebar, setCourseName} = courseSlice.actions;
+export const {changeCourse, toggleSidebar, createOneCourse, setCourseName, removeOne} = courseSlice.actions;
 
 export const {selectAll: selectCourses, selectById: selectCourseById} =
     courseAdapter.getSelectors((state: RootState) => state.courseReducer)

@@ -4,7 +4,7 @@ import {RootState} from "../store.ts";
 
 export const questionAdapter = createEntityAdapter<IQuestion>()
 
-const initialState = questionAdapter.getInitialState<{status: string, entities: IQuestion[]}>({
+const initialState = questionAdapter.getInitialState<{ status: string, entities: IQuestion[] }>({
     status: "idle",
     entities: []
 })
@@ -42,11 +42,21 @@ export const questionSlice = createSlice({
     name: 'questionSlice',
     initialState,
     reducers: (create) => ({
-        selectQuestionType: create.reducer<{questionId: number, type: string}>((state, action) => {
+        selectQuestionType: create.reducer<{ questionId: number, type: string }>((state, action) => {
             questionAdapter.updateOne(state, {id: action.payload.questionId, changes: {type: action.payload.type}})
         }),
         removeOneQuestion: questionAdapter.removeOne,
-        addOneQuestion: questionAdapter.addOne
+        removeManyQuestions: questionAdapter.removeMany,
+        addOneQuestion: questionAdapter.addOne,
+        markQuestionDone: create.reducer<number>((state, action) => {
+            questionAdapter.updateOne(state, {id: action.payload, changes: {done: true}});
+        }),
+        markQuestionUndone: create.reducer<number>((state, action) => {
+            questionAdapter.updateOne(state, {id: action.payload, changes: {done: false}});
+        }),
+        setQuestionName: create.reducer<{ questionId: number, name: string }>((state, action) => {
+            questionAdapter.updateOne(state, {id: action.payload.questionId, changes: {name: action.payload.name}});
+        })
     }),
     extraReducers: builder => {
         builder
@@ -61,7 +71,15 @@ export const questionSlice = createSlice({
 })
 // export const {selectQuestionById, selectQuestionsByTestId} = questionSlice.selectors;
 
-export const {selectQuestionType, removeOneQuestion, addOneQuestion} = questionSlice.actions;
+export const {
+    selectQuestionType,
+    removeOneQuestion,
+    addOneQuestion,
+    markQuestionDone,
+    markQuestionUndone,
+    removeManyQuestions,
+    setQuestionName
+} = questionSlice.actions;
 
 export const {selectAll: selectQuestions, selectById: selectQuestionById} =
     questionAdapter.getSelectors((state: RootState) => state.questionReducer)
@@ -69,11 +87,11 @@ export const {selectAll: selectQuestions, selectById: selectQuestionById} =
 const selectTestsAction = (state: RootState) => state.questionReducer.entities
 
 export const selectQuestionsByTestId = (testId: number) => {
-  return createSelector(
-      selectTestsAction,
-      (state) =>
-          Object.values(state).filter((el) => el.testId === testId)
-  )
+    return createSelector(
+        selectTestsAction,
+        (state) =>
+            Object.values(state).filter((el) => el.testId === testId)
+    )
 }
 
 export default questionSlice.reducer

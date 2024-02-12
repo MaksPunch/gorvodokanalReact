@@ -111,7 +111,7 @@ export const fetchAnswers = createAsyncThunk(
             },
             {
                 id: 13,
-                answer: "Состав и последовательность выполняемых работ",
+                answer: "",
                 type: "text",
                 questionId: 1,
                 rightAnswer: true,
@@ -121,7 +121,7 @@ export const fetchAnswers = createAsyncThunk(
             },
             {
                 id: 14,
-                answer: "Состав и последовательность выполняемых работ",
+                answer: "",
                 type: "text",
                 questionId: 2,
                 rightAnswer: true,
@@ -131,7 +131,7 @@ export const fetchAnswers = createAsyncThunk(
             },
             {
                 id: 15,
-                answer: "Состав и последовательность выполняемых работ",
+                answer: "",
                 type: "text",
                 questionId: 3,
                 rightAnswer: true,
@@ -151,10 +151,14 @@ export const answerSlice = createSlice({
             const answers = answerAdapter.getSelectors().selectAll(state)
             const answer = answers.find(el => el.id === action.payload.answerId)
             const selectedAnswer = answers.find(el => el.selected && el.questionId === answer?.questionId);
-            if (selectedAnswer && action.payload.type === 'radio' ) {
+            if (selectedAnswer && action.payload.type === 'radio') {
                 answerAdapter.updateOne(state, {id: selectedAnswer.id, changes: {selected: false}});
             }
-            answerAdapter.updateOne(state, {id: action.payload.answerId, changes: {selected: true}})
+            if (action.payload.type === 'checkbox' && answer?.selected) {
+                answerAdapter.updateOne(state, {id: answer.id, changes: {selected: false}});
+            } else {
+                answerAdapter.updateOne(state, {id: action.payload.answerId, changes: {selected: true}})
+            }
         }),
         selectRightAnswer: create.reducer<{ id: number, type: string, changeType?: boolean }>((state, action) => {
             const answers = answerAdapter.getSelectors().selectAll(state)
@@ -182,6 +186,10 @@ export const answerSlice = createSlice({
         }),
         removeOneAnswer: create.reducer<number>((state, action) => {
             answerAdapter.removeOne(state, action.payload);
+        }),
+        removeManyAnswers: answerAdapter.removeMany,
+        changeUserInput: create.reducer<{answerId: number, input: string}>((state, action) => {
+            answerAdapter.updateOne(state, {id: action.payload.answerId, changes: {userInput: action.payload.input}});
         })
     }),
     extraReducers: builder => {
@@ -196,23 +204,30 @@ export const answerSlice = createSlice({
     }
 })
 
-export const {selectAnswer, selectRightAnswer, addOneAnswer, changeAnswerName, removeOneAnswer} = answerSlice.actions;
+export const {selectAnswer, selectRightAnswer, addOneAnswer, changeAnswerName, removeOneAnswer, changeUserInput, removeManyAnswers} = answerSlice.actions;
 
 export const {selectAll: selectAnswers, selectById: selectAnswerById} =
     answerAdapter.getSelectors((state: RootState) => state.answerReducer)
 
 const selectAnswersAction = (state: RootState) => state.answerReducer.entities
 
-export const selectAnswersByQuestionId = (questionId: number) => {
+export const selectAnswersByQuestionId = (questionId: number, type: string) => {
     return createSelector(
         selectAnswersAction,
-        (state) => Object.values(state).filter((el) => el.questionId === questionId)
+        (state) =>
+            Object.values(state).filter((el) => el.questionId === questionId && type !== 'text')
     )
 }
 export const selectAnswersByTestId = (testId: number) => {
     return createSelector(
         selectAnswersAction,
         (state) => Object.values(state).filter((el) => el.testId === testId)
+    )
+}
+export const selectSelectedAnswerByQuestionId = (questionId: number) => {
+    return createSelector(
+        selectAnswersAction,
+        (state) => Object.values(state).find((el) => el.questionId === questionId && el.selected)
     )
 }
 export const selectTextAnswer = (questionId: number) => {

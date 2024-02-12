@@ -6,12 +6,13 @@ import {useEffect, useMemo, useState} from "react";
 import MyRadio from "../components/MyRadio.tsx";
 import {classNames} from "../utils/classNames.ts";
 import {
+    changeUserInput,
     fetchAnswers,
     selectAnswer,
-    selectAnswersByQuestionId,
+    selectAnswersByQuestionId, selectSelectedAnswerByQuestionId, selectTextAnswer,
 } from "../store/reducers/answerSlice.ts";
 import {
-    fetchQuestions,
+    fetchQuestions, markQuestionDone, markQuestionUndone,
     selectQuestionById,
     selectQuestionsByTestId,
 } from "../store/reducers/questionSlice.ts";
@@ -27,23 +28,32 @@ const TestPage = () => {
     const {questionId, sectionId} = useParams<"questionId" | "sectionId">();
     const [nextQuestionId, setNextQuestionId] = useState<number | string>(2);
     const dispatch = useAppDispatch();
-    const answersForQuestion = useAppSelector(
-        selectAnswersByQuestionId(Number(questionId)),
-    );
     const section = useAppSelector((state) =>
         selectSectionById(state, Number(sectionId)),
     );
     const questions = useAppSelector(selectQuestionsByTestId(section?.testId));
+    const selectedAnswer = useAppSelector(selectSelectedAnswerByQuestionId(Number(questionId)));
     const question = useAppSelector((state) =>
         selectQuestionById(state, Number(questionId))
     );
+    const answersForQuestion = useAppSelector(
+        selectAnswersByQuestionId(Number(questionId), question?.type),
+    );
+    const textAnswerForQuestion = useAppSelector(selectTextAnswer(Number(questionId)));
     const {status: sectionStatus} = useAppSelector(
         (state) => state.sectionReducer
     );
     const {status: questionStatus} = useAppSelector((state) => state.questionReducer);
-    const {status: answerStatus} = useAppSelector(
-        (state) => state.answerReducer
-    );
+    const {status: answerStatus} = useAppSelector((state) => state.answerReducer);
+
+    useEffect(() => {
+        if (selectedAnswer) {
+            dispatch(markQuestionDone(Number(questionId)));
+        } else {
+            dispatch(markQuestionUndone(Number(questionId)))
+        }
+    }, [dispatch, questionId, selectedAnswer]);
+
     useEffect(() => {
         if (sectionStatus === "idle") {
             dispatch(fetchSections());
@@ -87,6 +97,9 @@ const TestPage = () => {
         dispatch(selectAnswer({answerId: Number(answerId), type}));
     }
 
+    function userInput(input: string, answerId: number) {
+        dispatch(changeUserInput({answerId, input}))
+    }
 
     return (
         <div>
@@ -120,7 +133,7 @@ const TestPage = () => {
                                     : ""}
                                 {question?.type === "checkbox" && answersForQuestion ?
                                     answersForQuestion.map(({answer, id, selected, type}) => {
-                                        return (type === 'text' ? "" : <MyCheckbox
+                                            return (type === 'text' ? "" : <MyCheckbox
                                                 key={id}
                                                 label={answer}
                                                 value={id}
@@ -134,11 +147,13 @@ const TestPage = () => {
                                     :
                                     ""
                                 }
-                                {question?.type === "text" && answersForQuestion ? (
+                                {question?.type === "text" && textAnswerForQuestion ? (
                                     <input
                                         type="text"
                                         name={"question_" + question.id}
                                         className="px-2.5 py-2 bg-white rounded shadow border border-black border-opacity-40"
+                                        value={textAnswerForQuestion.userInput}
+                                        onChange={(e) => userInput(e.target.value, textAnswerForQuestion.id)}
                                     />
                                 ) : (
                                     ""
@@ -161,16 +176,14 @@ const TestPage = () => {
                                             id
                                         }
                                         className={classNames(
-                                            id === Number(questionId)
-                                                ? "border-2 border-blue-400"
-                                                : "border border-black border-opacity-25",
-                                            done ? "bg-emerald-400" : "bg-white",
-                                            "px-6 py-2 rounded gap-2.5 flex",
+                                            id === Number(questionId) ? "border-2 border-blue-400" : "border border-black border-opacity-25",
+                                            done ? "bg-emerald-400 text-white" : "bg-white",
+                                            "px-6 py-2 rounded gap-2.5 flex text-black",
                                         )}
                                     >
                                         <p
                                             className={classNames(
-                                                question?.done ? "text-white" : "text-black",
+                                                done ? "text-white" : "text-black",
                                                 "text-xl tracking-tight",
                                             )}
                                         >

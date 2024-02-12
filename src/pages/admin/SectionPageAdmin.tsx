@@ -4,8 +4,9 @@ import { UploadAdapter } from "../../utils/UploadAdapter.ts";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import {
+  createOneSection,
   fetchSections,
-  selectSectionById,
+  selectSectionById, selectSections,
   setSectionContent,
   setSectionName,
 } from "../../store/reducers/sectionSlice.ts";
@@ -14,9 +15,10 @@ import MyInput from "../../components/MyInput.tsx";
 import MySelect from "../../components/MySelect.tsx";
 import MyButton from "../../components/MyButton.tsx";
 import Pagination from "../../components/Pagination.tsx";
-import { fetchTests, selectTests } from "../../store/reducers/testSlice.ts";
+import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import {setAlertClassName, setAlertContent, setAlertOpen} from "../../store/reducers/alertSlice.ts";
+import {useQuery} from "../../hooks/useQuery.ts";
 
 const SectionPageAdmin = () => {
   const { sectionId } = useParams<"sectionId">();
@@ -24,6 +26,7 @@ const SectionPageAdmin = () => {
   const section = useAppSelector((state) =>
     selectSectionById(state, Number(sectionId)),
   );
+  const sections = useAppSelector(state => selectSections(state));
   const tests = useAppSelector((state) => selectTests(state));
   const { status: sectionStatus } = useAppSelector(
     (state) => state.sectionReducer,
@@ -31,6 +34,7 @@ const SectionPageAdmin = () => {
   const { status: testStatus } = useAppSelector((state) => state.testReducer);
   const [name, setName] = useState<string>(section?.name || "");
   const [content, setContent] = useState<string>(section?.content || "");
+  const query = useQuery()
 
   useEffect(() => {
     if (sectionStatus === "idle") {
@@ -67,6 +71,25 @@ const SectionPageAdmin = () => {
     dispatch(setAlertContent('Успешно сохранено'))
     dispatch(setAlertClassName('bg-green-500 text-white'))
   }
+
+  useEffect(() => {
+    const sectionFound = sections.find(el => el.id === Number(sectionId));
+    console.log(sectionFound)
+    if (!sectionFound) {
+      const lastSectionId = sections[sections.length - 1]?.id + 1 || 1;
+      console.log(sectionFound)
+      if (lastSectionId) {
+        dispatch(createOneSection({
+          id: lastSectionId,
+          name: "",
+          testId: 0,
+          content: "",
+          steps: 0,
+          courseId: Number(query.get('courseId'))
+        }))
+      }
+    }
+  }, [sectionId, sections, dispatch]);
 
   return (
     <div className="main-wrapper flex flex-col gap-7 pb-16">

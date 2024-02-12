@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { useEffect } from "react";
-import { fetchTests, selectTests } from "../../store/reducers/testSlice.ts";
+import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
 import { TEST_PAGE_ADMIN_ROUTE } from "../../utils/consts.ts";
 import { Link } from "react-router-dom";
 import {
@@ -51,7 +51,7 @@ const TestsPageAdmin = () => {
         <h1>Редактирование тестов</h1>
         <Link
           to={
-            TEST_PAGE_ADMIN_ROUTE + "/" + (tests[tests.length - 1]?.id + 1 || 0)
+            TEST_PAGE_ADMIN_ROUTE + "/" + (tests[tests.length - 1]?.id + 1 || 1)
           }
           className="text-blue-600 cursor-pointer"
         >
@@ -63,7 +63,7 @@ const TestsPageAdmin = () => {
         type={"text"}
         placeholder={"Поиск"}
       />
-      <div>
+      <div className="flex flex-col gap-7">
         {tests.map(({ name, id }) => {
           let ending = "";
           if (questionsQuantities[id] === 1) {
