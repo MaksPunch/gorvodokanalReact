@@ -10,7 +10,7 @@ import {
     selectTests,
     setTestName
 } from "../../store/reducers/testSlice";
-import {useEffect, useState} from "react";
+import {createRef, useEffect, useState} from "react";
 import {
     addOneQuestion,
     fetchQuestions, removeManyQuestions, removeOneQuestion, selectQuestions,
@@ -29,6 +29,7 @@ import {
 import {setAlertClassName, setAlertContent, setAlertOpen} from "../../store/reducers/alertSlice.ts";
 import {TESTS_PAGE_ADMIN_ROUTE} from "../../utils/consts.ts";
 import {classNames} from "../../utils/classNames.ts";
+import {CSSTransition} from 'react-transition-group';
 
 const TestPageAdmin = () => {
     const {testId} = useParams<"testId">();
@@ -142,7 +143,7 @@ const TestPageAdmin = () => {
     }
 
     return (
-        <div className="main-wrapper">
+        <div className="main-wrapper pb-96">
             <div className="flex justify-between mb-7">
                 <h1>Редактирование теста</h1>
                 <div className="flex gap-7">
@@ -150,7 +151,7 @@ const TestPageAdmin = () => {
                     <button className="bg-red-500 px-4 py-2 rounded text-white"
                             onClick={() => handleDeleteTest()}
                     >
-                        Удалить вопрос
+                        Удалить тест
                     </button>
                 </div>
             </div>
@@ -170,75 +171,87 @@ const TestPageAdmin = () => {
                                         onClick={() => addQuestion()}/>
                     </div>
                 </div>
-                {questionsInTest.map((question) => {
-                    let type: string;
-                    switch (question.type) {
-                        case "radio":
-                            type = 'Один из списка';
-                            break;
-                        case "checkbox":
-                            type = 'Несколько из списка';
-                            break;
-                        case "text":
-                            type = 'Слово или словосочетание';
-                            break;
-                        default:
-                            type = 'Один из списка';
-                            question.type = 'radio';
-                    }
-                    return (
-                        <div className="flex flex-col gap-5 p-4 border border-opacity-50 border-black rounded transition-all"
-                             key={question.id}>
-                            <div className="flex flex-col gap-2.5">
-                                <div className="flex gap-4 items-center">
-                                    <TextareaAutosize
-                                        value={question.name}
-                                        className="border-0 rounded w-full resize-none bg-gray-100 py-1 px-2"
-                                        onChange={(e) =>
-                                            dispatch(setQuestionName({questionId: question.id, name: e.target.value}))
-                                        }
-                                    />
-                                    <ChevronRightIcon onClick={() => setOpenQuestion(openQuestion === question.id ? 0 : question.id)} className="size-6"/>
+                <div className="flex flex-col gap-7">
+                    {questionsInTest.map((question) => {
+                        let type: string;
+                        switch (question.type) {
+                            case "radio":
+                                type = 'Один из списка';
+                                break;
+                            case "checkbox":
+                                type = 'Несколько из списка';
+                                break;
+                            case "text":
+                                type = 'Слово или словосочетание';
+                                break;
+                            default:
+                                type = 'Один из списка';
+                                question.type = 'radio';
+                        }
+                        const inCondition = openQuestion === question.id;
+                        const nodeRef = createRef<HTMLDivElement>();
+                        return (
+                            <div className="flex flex-col gap-5 p-4 border border-opacity-50 border-black rounded transition-all duration-500"
+                                 key={question.id}>
+                                <div className="flex flex-col gap-2.5">
+                                    <div className="flex gap-4 items-center">
+                                        <TextareaAutosize
+                                            value={question.name}
+                                            className="border-0 rounded w-full resize-none bg-gray-100 py-1 px-2 shadow"
+                                            onChange={(e) =>
+                                                dispatch(setQuestionName({questionId: question.id, name: e.target.value}))
+                                            }
+                                        />
+                                        <ChevronRightIcon onClick={() => setOpenQuestion(openQuestion === question.id ? 0 : question.id)} className={classNames("size-6 cursor-pointer transition-transform", openQuestion === question.id ? "rotate-90" : "")}/>
+                                    </div>
+                                    <p className={classNames("text-sm transition-all duration-500", openQuestion === question.id ? "opacity-0 select-none -m-4" : "")}>{type}</p>
                                 </div>
-                                <p className={classNames("text-sm", openQuestion === question.id ? "hidden" : "")}>{type}</p>
+                                <CSSTransition nodeRef={nodeRef} unmountOnExit in={inCondition} timeout={{
+                                    exit: 500,
+                                }} classNames="open-question">
+                                    <div
+                                        ref={nodeRef}
+                                        className={classNames("flex flex-col gap-5")}
+                                    >
+                                        <div
+                                            className="flex gap-4 justify-between">
+                                            <MyRadio name={"question_type_" + question.id} label="Один из списка"
+                                                     value="radio"
+                                                     selected={question.type === 'radio'}
+                                                     selectAnswer={() => changeQuestionType(question.id, 'radio')}
+                                                     id={'question_radio_' + question.id}
+                                            />
+                                            <MyRadio name={"question_type_" + question.id} label="Несколько из списка"
+                                                     value="checkbox"
+                                                     selected={question.type === 'checkbox'}
+                                                     selectAnswer={() => changeQuestionType(question.id, 'checkbox')}
+                                                     id={'question_checkbox_' + question.id}
+                                            />
+                                            <MyRadio name={"question_type_" + question.id} label="Слово или словосочетание"
+                                                     value="text"
+                                                     selected={question.type === 'text'}
+                                                     selectAnswer={() => changeQuestionType(question.id, 'text')}
+                                                     id={'question_text_' + question.id}
+                                            />
+                                        </div>
+                                        <p className="font-medium">
+                                            Варианты ответов:
+                                        </p>
+                                        <AnswersList type={question.type} questionId={question.id}/>
+                                        <div className="flex justify-between items-center">
+                                            {question.type ?
+                                                <MyButton onClick={() => addAnswer(question.id)}>Добавить вариант
+                                                    ответа</MyButton> : ""}
+                                            <button className="bg-red-500 px-4 py-2 rounded text-white"
+                                                    onClick={() => removeQuestion(question.id)}>Удалить вопрос
+                                            </button>
+                                        </div>
+                                    </div>
+                                </CSSTransition>
                             </div>
-                            <div className={classNames("flex flex-col gap-2.5", openQuestion === question.id ? "" : "hidden")}>
-                                <div
-                                    className="flex gap-4 justify-between">
-                                    <MyRadio name={"question_type_" + question.id} label="Один из списка"
-                                             value="radio"
-                                             selected={question.type === 'radio'}
-                                             selectAnswer={() => changeQuestionType(question.id, 'radio')}
-                                             id={'question_radio_' + question.id}
-                                    />
-                                    <MyRadio name={"question_type_" + question.id} label="Несколько из списка"
-                                             value="checkbox"
-                                             selected={question.type === 'checkbox'}
-                                             selectAnswer={() => changeQuestionType(question.id, 'checkbox')}
-                                             id={'question_checkbox_' + question.id}
-                                    />
-                                    <MyRadio name={"question_type_" + question.id} label="Слово или словосочетание"
-                                             value="text"
-                                             selected={question.type === 'text'}
-                                             selectAnswer={() => changeQuestionType(question.id, 'text')}
-                                             id={'question_text_' + question.id}
-                                    />
-                                </div>
-                                <p className="font-medium">
-                                    Варианты ответов:
-                                </p>
-                                <AnswersList type={question.type} questionId={question.id}/>
-                                <div className="flex justify-between items-center">
-                                    {question.type ? <MyButton onClick={() => addAnswer(question.id)}>Добавить вариант
-                                        ответа</MyButton> : ""}
-                                    <button className="bg-red-500 px-4 py-2 rounded text-white"
-                                            onClick={() => removeQuestion(question.id)}>Удалить вопрос
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </div>
     );

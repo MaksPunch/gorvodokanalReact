@@ -33,7 +33,7 @@ export const fetchQuestions = createAsyncThunk(
                 type: "radio",
                 name: "Что НЕ определяется для каждого этапа жизненного цикла?",
                 done: false,
-            },
+            }
         ] as IQuestion[]
     }
 )

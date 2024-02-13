@@ -44,6 +44,7 @@ const HeaderPopUp = ({linkList, children}: { linkList: LinkItem[], children: str
                         className={classNames("menu-item flex items-center gap-2 px-2 w-max")}
                         to={to}
                         key={to}
+                        onClick={() => setPopUpOpen(false)}
                     >
                         {label}
                     </Link>

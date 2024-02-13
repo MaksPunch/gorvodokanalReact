@@ -2,12 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import {
   COURSES_PAGE_ADMIN_ROUTE,
   COURSES_PAGE_ROUTE,
-  DEPARTMENT_EDIT_ADMIN_ROUTE,
+  // DEPARTMENT_EDIT_ADMIN_ROUTE,
   HOME_ROUTE,
   PROFILE_EDIT_PAGE_ROUTE,
   TESTS_PAGE_ADMIN_ROUTE,
-  USER_EDIT_ADMIN_ROUTE,
-  USER_PROGRESS_ADMIN_ROUTE,
+  // USER_EDIT_ADMIN_ROUTE,
+  // USER_PROGRESS_ADMIN_ROUTE,
 } from "../utils/consts.ts";
 import logo from "../public/img/logo.png";
 import userIconImg from "../public/img/User.png";
@@ -27,20 +27,20 @@ const coursesPopUp = [
   },
 ];
 
-const usersPopUp = [
-  {
-    to: USER_EDIT_ADMIN_ROUTE,
-    label: "Редактирование пользователей",
-  },
-  {
-    to: USER_PROGRESS_ADMIN_ROUTE,
-    label: "Прогресс пользователей",
-  },
-  {
-    to: DEPARTMENT_EDIT_ADMIN_ROUTE,
-    label: "Редактирование отделов",
-  },
-];
+// const usersPopUp = [
+//   {
+//     to: USER_EDIT_ADMIN_ROUTE,
+//     label: "Редактирование пользователей",
+//   },
+//   {
+//     to: USER_PROGRESS_ADMIN_ROUTE,
+//     label: "Прогресс пользователей",
+//   },
+//   {
+//     to: DEPARTMENT_EDIT_ADMIN_ROUTE,
+//     label: "Редактирование отделов",
+//   },
+// ];
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -66,7 +66,7 @@ const Header = () => {
           {pathname.startsWith("/admin") ? (
             <>
               <HeaderPopUp linkList={coursesPopUp}>Курсы</HeaderPopUp>
-              <HeaderPopUp linkList={usersPopUp}>Пользователи</HeaderPopUp>
+              {/*<HeaderPopUp linkList={usersPopUp}>Пользователи</HeaderPopUp>*/}
             </>
           ) : (
             <Link

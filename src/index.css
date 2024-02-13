@@ -117,6 +117,41 @@ h2 {
     overflow-y: auto;
 }
 
+.open-question-enter {
+    max-height: 0;
+    overflow: hidden !important;
+    display: none;
+}
+
+.open-question-enter-active {
+    max-height: 30rem;
+    overflow: hidden;
+    transition: max-height 500ms ease-in;
+    margin: 0;
+}
+
+.open-question-enter-done {
+    max-height: 30rem;
+    overflow: hidden;
+}
+
+.open-question-exit {
+    max-height: 30rem;
+    overflow: hidden;
+}
+
+.open-question-exit-active {
+    max-height: 0;
+    overflow: hidden;
+    margin: -0.5rem 0;
+    transition: max-height 500ms ease-out, margin 300ms ease-out;
+}
+
+.open-question-exit-done {
+    max-height: 0;
+    overflow: hidden;
+}
+
 /* Отключение Powered By в CKEditor */
 .ck.ck-balloon-panel {
     display: none !important;
