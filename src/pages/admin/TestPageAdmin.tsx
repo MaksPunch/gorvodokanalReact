@@ -143,7 +143,7 @@ const TestPageAdmin = () => {
     }
 
     return (
-        <div className="main-wrapper pb-96">
+        <div className="main-wrapper pb-5">
             <div className="flex justify-between mb-7">
                 <h1>Редактирование теста</h1>
                 <div className="flex gap-7">
@@ -204,7 +204,7 @@ const TestPageAdmin = () => {
                                         />
                                         <ChevronRightIcon onClick={() => setOpenQuestion(openQuestion === question.id ? 0 : question.id)} className={classNames("size-6 cursor-pointer transition-transform", openQuestion === question.id ? "rotate-90" : "")}/>
                                     </div>
-                                    <p className={classNames("text-sm transition-all duration-500", openQuestion === question.id ? "opacity-0 select-none -m-4" : "")}>{type}</p>
+                                    <p className={classNames("text-sm transition-all duration-500", openQuestion === question.id ? "opacity-0 select-none -my-4" : "")}>{type}</p>
                                 </div>
                                 <CSSTransition nodeRef={nodeRef} unmountOnExit in={inCondition} timeout={{
                                     exit: 500,
