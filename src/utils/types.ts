@@ -50,3 +50,8 @@ export interface IUser {
   surname: string;
   patronymic: string;
 }
+
+export interface IDepartment {
+  id: number;
+  name: string;
+}

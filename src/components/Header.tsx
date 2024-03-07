@@ -1,13 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import {
   COURSES_PAGE_ADMIN_ROUTE,
-  COURSES_PAGE_ROUTE,
-  // DEPARTMENT_EDIT_ADMIN_ROUTE,
+  COURSES_PAGE_ROUTE, DEPARTMENT_EDIT_ADMIN_ROUTE,
   HOME_ROUTE,
   PROFILE_EDIT_PAGE_ROUTE,
-  TESTS_PAGE_ADMIN_ROUTE,
-  // USER_EDIT_ADMIN_ROUTE,
-  // USER_PROGRESS_ADMIN_ROUTE,
+  TESTS_PAGE_ADMIN_ROUTE, USER_EDIT_ADMIN_ROUTE,
 } from "../utils/consts.ts";
 import logo from "../public/img/logo.png";
 import userIconImg from "../public/img/User.png";
@@ -25,22 +22,7 @@ const coursesPopUp = [
     to: TESTS_PAGE_ADMIN_ROUTE,
     label: "Редактирование тестов",
   },
-];
-
-// const usersPopUp = [
-//   {
-//     to: USER_EDIT_ADMIN_ROUTE,
-//     label: "Редактирование пользователей",
-//   },
-//   {
-//     to: USER_PROGRESS_ADMIN_ROUTE,
-//     label: "Прогресс пользователей",
-//   },
-//   {
-//     to: DEPARTMENT_EDIT_ADMIN_ROUTE,
-//     label: "Редактирование отделов",
-//   },
-// ];
+]
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -66,7 +48,26 @@ const Header = () => {
           {pathname.startsWith("/admin") ? (
             <>
               <HeaderPopUp linkList={coursesPopUp}>Курсы</HeaderPopUp>
-              {/*<HeaderPopUp linkList={usersPopUp}>Пользователи</HeaderPopUp>*/}
+              <Link
+                  className={classNames(
+                      "menu-item",
+                      pathname === USER_EDIT_ADMIN_ROUTE ? "active-page" : "",
+                  )}
+                  to={USER_EDIT_ADMIN_ROUTE}
+                  data-href={USER_EDIT_ADMIN_ROUTE}
+              >
+                Пользователи
+              </Link>
+              <Link
+                  className={classNames(
+                      "menu-item",
+                      pathname === DEPARTMENT_EDIT_ADMIN_ROUTE ? "active-page" : "",
+                  )}
+                  to={DEPARTMENT_EDIT_ADMIN_ROUTE}
+                  data-href={DEPARTMENT_EDIT_ADMIN_ROUTE}
+              >
+                Отделы
+              </Link>
             </>
           ) : (
             <Link

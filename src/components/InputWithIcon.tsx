@@ -1,12 +1,14 @@
 import { EnvelopeIcon } from '@heroicons/react/20/solid'
+import {classNames} from "../utils/classNames.ts";
 
 interface propsTypes {
     Icon: typeof EnvelopeIcon,
     placeholder: string,
-    type: string
+    type: string,
+    className?: string;
 }
 
-export default function InputWithIcon({Icon, placeholder, type}: propsTypes) {
+export default function InputWithIcon({Icon, placeholder, type, className}: propsTypes) {
     return (
         <div>
             <div className="relative rounded-md">
@@ -17,7 +19,7 @@ export default function InputWithIcon({Icon, placeholder, type}: propsTypes) {
                     type={type}
                     name={type}
                     id={type}
-                    className="block w-96 rounded-md border-0 py-1.5 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6 input-with-icon"
+                    className={classNames("block w-96 rounded-md border-0 py-1.5 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6 input-with-icon", className ? className : "")}
                     placeholder={placeholder}
                 />
             </div>

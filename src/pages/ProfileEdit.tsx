@@ -3,6 +3,7 @@ import { fetchUsers, selectUserById } from "../store/reducers/userSlice.ts";
 import { useEffect } from "react";
 import MyButton from "../components/MyButton.tsx";
 import MyInput from "../components/MyInput.tsx";
+import userImg from "../public/img/userAvatars/1.jpg";
 
 const ProfileEdit = () => {
   const dispatch = useAppDispatch();
@@ -16,10 +17,6 @@ const ProfileEdit = () => {
     }
   }, [userStatus, dispatch]);
 
-  function getImgUrl(name: string) {
-    return new URL(`${name}`, import.meta.url).href;
-  }
-
   return (
     <div className="main-wrapper">
       <h1 className="mb-6">Редактировать информацию</h1>
@@ -29,7 +26,7 @@ const ProfileEdit = () => {
         </h2>
         <div className="flex gap-7 items-center">
           <img
-            src={getImgUrl("../public/img/" + user?.avatar)}
+            src={userImg}
             className="size-24 rounded object-cover"
             alt={user?.name}
           />

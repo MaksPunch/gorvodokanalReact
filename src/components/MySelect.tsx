@@ -3,9 +3,6 @@ import {Listbox, Transition} from '@headlessui/react'
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 import {classNames} from "../utils/classNames.ts";
 import {Link} from "react-router-dom";
-import {TEST_PAGE_ADMIN_ROUTE} from "../utils/consts.ts";
-import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
-import {fetchTests, selectTests} from "../store/reducers/testSlice.ts";
 
 const people = [
     {id: 1, name: 'Wade Cooper'},
@@ -20,17 +17,8 @@ const people = [
     {id: 10, name: 'Emil Schaefer'},
 ]
 
-export default function MySelect({label, name, items}: {label: string, name: string, items: {id: number, name: string}[]}) {
+export default function MySelect({label, name, items, createText, className, createLink}: {label: string, name: string, items: {id: number, name: string}[], createText?: string, className?: string, createLink?:string}) {
     const [selected, setSelected] = useState(items[0] || people[0]);
-    const { status: testStatus } = useAppSelector((state) => state.testReducer);
-    const tests = useAppSelector((state) => selectTests(state));
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (testStatus === "idle") {
-            dispatch(fetchTests());
-        }
-    }, [dispatch, testStatus]);
 
     useEffect(() => {
         if (items) {
@@ -41,7 +29,7 @@ export default function MySelect({label, name, items}: {label: string, name: str
     return (
         <Listbox value={selected} onChange={setSelected} name={name}>
             {({open}) => (
-                <div>
+                <div className={className}>
                     <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">{label}</Listbox.Label>
                     <div className="relative mt-2">
                         <Listbox.Button
@@ -61,16 +49,16 @@ export default function MySelect({label, name, items}: {label: string, name: str
                         >
                             <Listbox.Options
                                 className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                <Link to={TEST_PAGE_ADMIN_ROUTE + "/"  + (tests[tests.length - 1]?.id + 1 || 1)}>
+                                {createLink && createText ? <Link to={createLink + "/"  + (items[items.length - 1]?.id + 1 || 1)}>
                                     <Listbox.Option value={{id: 0, name: "Создать тест"}} className={({active}) =>
                                         classNames(
                                             active ? 'bg-blue-600 text-white' : 'text-gray-900',
                                             'relative cursor-default select-none py-2 pl-3 pr-9'
                                         )
                                     }>
-                                        <span>Создать тест</span>
+                                        <span>Создать {createText}</span>
                                     </Listbox.Option>
-                                </Link>
+                                </Link> : ""}
                                 {items.map((item) => (
                                     <Listbox.Option
                                         key={item.id}

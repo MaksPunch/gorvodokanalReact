@@ -19,6 +19,7 @@ import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import {setAlertClassName, setAlertContent, setAlertOpen} from "../../store/reducers/alertSlice.ts";
 import {useQuery} from "../../hooks/useQuery.ts";
+import {TEST_PAGE_ADMIN_ROUTE} from "../../utils/consts.ts";
 
 const SectionPageAdmin = () => {
   const { sectionId } = useParams<"sectionId">();
@@ -101,11 +102,16 @@ const SectionPageAdmin = () => {
         value={name}
         onChangeHandle={(e) => setName(e.target.value)}
       />
-      <MySelect label={"Выбрать тест"} name={"test"} items={tests} />
+      <MySelect label={"Выбрать тест"} name={"test"} items={tests} createText="тест" createLink={TEST_PAGE_ADMIN_ROUTE}/>
       <div className="CKEditor">
         <CKEditor
           editor={ClassicEditor}
           data={content}
+          config={{
+            mediaEmbed: {
+                previewsInData: true
+            }
+          }}
           onChange={(_event, editor) => {
             setContent(editor.getData());
           }}

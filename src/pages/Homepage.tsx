@@ -41,7 +41,7 @@ const Homepage = () => {
                             <p className="text-sm">Среда 21 января 2024</p>
                             <div className="feed-section-wrapper flex flex-col gap-3">
                                 <div className="feed-section flex items-center gap-4">
-                                    <p className="text-xs text-gray-400">12:00</p>
+                                    <p className="text-xs text-gray-400">до 12:00</p>
                                     <div className="feed-section-name flex items-center gap-2">
                                         <BookOpenIcon className="size-6"/>
                                         <Link
@@ -56,7 +56,7 @@ const Homepage = () => {
                             </div>
                             <div className="feed-section-wrapper flex flex-col gap-3">
                                 <div className="feed-section flex items-center gap-4">
-                                    <p className="text-xs text-gray-400">15:00</p>
+                                    <p className="text-xs text-gray-400">до 15:00</p>
                                     <div className="feed-section-name flex items-center gap-2">
                                         <BookOpenIcon className="size-6"/>
                                         <Link
@@ -77,7 +77,7 @@ const Homepage = () => {
                             <p className="text-sm">Среда 20 января 2024</p>
                             <div className="feed-section-wrapper flex flex-col gap-3">
                                 <div className="feed-section flex items-center gap-4">
-                                    <p className="text-xs text-gray-400">21:00</p>
+                                    <p className="text-xs text-gray-400">до 21:00</p>
                                     <div className="feed-section-name flex items-center gap-2">
                                         <BookOpenIcon className="size-6"/>
                                         <Link
