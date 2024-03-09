@@ -2,9 +2,9 @@ import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import {
-    createOneCourse,
-    fetchCourses,
-    selectCourses,
+  createOneCourse,
+  fetchCourses,
+  selectCourses,
 } from "../../store/reducers/courseSlice.ts";
 import InputWithIcon from "../../components/InputWithIcon.tsx";
 import CoursesSidebar from "../../components/admin/CoursesSidebar.tsx";
@@ -27,13 +27,20 @@ const CoursesPageAdmin = () => {
 
   const handleCreateCourse = () => {
     setSidebarOpen(true);
-    dispatch(createOneCourse({
+    dispatch(
+      createOneCourse({
         id: courses[courses.length - 1].id + 1,
         name: "",
-        sectionsQuantity: 3
-    }))
+        sectionsQuantity: 3,
+      }),
+    );
     setCourseId(courses[courses.length - 1].id + 1);
   };
+
+  useEffect(() => {
+    document.title =
+      "Редактирование курсов | Система дистанцинного обучения ВологдаГорВодоканал";
+  }, []);
 
   return (
     <div className="main-wrapper flex flex-col gap-7">

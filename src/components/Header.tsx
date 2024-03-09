@@ -1,10 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import {
   COURSES_PAGE_ADMIN_ROUTE,
-  COURSES_PAGE_ROUTE, DEPARTMENT_EDIT_ADMIN_ROUTE,
+  COURSES_PAGE_ROUTE,
+  DEPARTMENT_EDIT_ADMIN_ROUTE,
   HOME_ROUTE,
   PROFILE_EDIT_PAGE_ROUTE,
-  TESTS_PAGE_ADMIN_ROUTE, USER_EDIT_ADMIN_ROUTE,
+  TESTS_PAGE_ADMIN_ROUTE,
+  USER_EDIT_ADMIN_ROUTE,
+  USER_PROGRESS_ADMIN_ROUTE,
 } from "../utils/consts.ts";
 import logo from "../public/img/logo.png";
 import userIconImg from "../public/img/User.png";
@@ -22,7 +25,7 @@ const coursesPopUp = [
     to: TESTS_PAGE_ADMIN_ROUTE,
     label: "Редактирование тестов",
   },
-]
+];
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -49,24 +52,34 @@ const Header = () => {
             <>
               <HeaderPopUp linkList={coursesPopUp}>Курсы</HeaderPopUp>
               <Link
-                  className={classNames(
-                      "menu-item",
-                      pathname === USER_EDIT_ADMIN_ROUTE ? "active-page" : "",
-                  )}
-                  to={USER_EDIT_ADMIN_ROUTE}
-                  data-href={USER_EDIT_ADMIN_ROUTE}
+                className={classNames(
+                  "menu-item",
+                  pathname === USER_EDIT_ADMIN_ROUTE ? "active-page" : "",
+                )}
+                to={USER_EDIT_ADMIN_ROUTE}
+                data-href={USER_EDIT_ADMIN_ROUTE}
               >
                 Пользователи
               </Link>
               <Link
-                  className={classNames(
-                      "menu-item",
-                      pathname === DEPARTMENT_EDIT_ADMIN_ROUTE ? "active-page" : "",
-                  )}
-                  to={DEPARTMENT_EDIT_ADMIN_ROUTE}
-                  data-href={DEPARTMENT_EDIT_ADMIN_ROUTE}
+                className={classNames(
+                  "menu-item",
+                  pathname === DEPARTMENT_EDIT_ADMIN_ROUTE ? "active-page" : "",
+                )}
+                to={DEPARTMENT_EDIT_ADMIN_ROUTE}
+                data-href={DEPARTMENT_EDIT_ADMIN_ROUTE}
               >
                 Отделы
+              </Link>
+              <Link
+                className={classNames(
+                  "menu-item",
+                  pathname === USER_PROGRESS_ADMIN_ROUTE ? "active-page" : "",
+                )}
+                to={USER_PROGRESS_ADMIN_ROUTE}
+                data-href={USER_PROGRESS_ADMIN_ROUTE}
+              >
+                Прогресс пользователей
               </Link>
             </>
           ) : (
@@ -98,7 +111,7 @@ const Header = () => {
           )}
         </div>
         <div className="flex items-center gap-3">
-          <Notifications/>
+          <Notifications />
           <Link className="w-11" to={PROFILE_EDIT_PAGE_ROUTE}>
             <img src={userIconImg} alt="" />
           </Link>

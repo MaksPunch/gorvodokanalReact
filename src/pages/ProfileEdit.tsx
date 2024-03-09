@@ -17,6 +17,11 @@ const ProfileEdit = () => {
     }
   }, [userStatus, dispatch]);
 
+  useEffect(() => {
+    document.title =
+      "Редактирование информации профиля | Система дистанцинного обучения ВологдаГорВодоканал";
+  }, []);
+
   return (
     <div className="main-wrapper">
       <h1 className="mb-6">Редактировать информацию</h1>

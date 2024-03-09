@@ -42,6 +42,16 @@ const CoursePage = () => {
     selectCourseById(state, Number(courseId)),
   );
 
+  useEffect(() => {
+    if (course) {
+      document.title =
+        course.name + " | Система дистанцинного обучения ВологдаГорВодоканал";
+    } else {
+      document.title =
+        "Курс | Система дистанцинного обучения ВологдаГорВодоканал";
+    }
+  }, [course]);
+
   return (
     <div className="main-wrapper flex items-start gap-7">
       <CourseBlock
