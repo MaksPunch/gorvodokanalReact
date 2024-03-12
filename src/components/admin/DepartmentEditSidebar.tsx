@@ -1,9 +1,6 @@
-import React from 'react';
 import {classNames} from "../../utils/classNames.ts";
 import {MagnifyingGlassIcon, PlusIcon, XMarkIcon} from "@heroicons/react/24/outline";
-import MySelect from "../MySelect.tsx";
 import InputWithIcon from "../InputWithIcon.tsx";
-import userImg from "../../public/img/userAvatars/1.jpg";
 import Pagination from "../Pagination.tsx";
 import MyButton from "../MyButton.tsx";
 
@@ -38,7 +35,7 @@ const DepartmentEditSidebar = ({sidebarOpen, setSidebarOpen}: {
             </div>
             <div className="flex flex-col gap-4 mt-7">
                 <div
-                    className="flex justify-between items-center rounded border border-black border-opacity-50 rounded p-2.5">
+                    className="flex justify-between items-center rounded border border-black border-opacity-50 p-2.5">
                     <div className="flex gap-7 items-center">
                         <div className="flex flex-col gap-1 font-medium">
                             <p className="text-xl">Строительный отдел</p>
@@ -48,7 +45,7 @@ const DepartmentEditSidebar = ({sidebarOpen, setSidebarOpen}: {
                     <PlusIcon className="size-6"/>
                 </div>
                 <div
-                    className="flex justify-between items-center rounded border border-black border-opacity-50 rounded p-2.5">
+                    className="flex justify-between items-center rounded border border-black border-opacity-50 p-2.5">
                     <div className="flex gap-7 items-center">
                         <div className="flex flex-col gap-1 font-medium">
                             <p className="text-xl">Строительный отдел</p>
@@ -58,7 +55,7 @@ const DepartmentEditSidebar = ({sidebarOpen, setSidebarOpen}: {
                     <PlusIcon className="size-6"/>
                 </div>
                 <div
-                    className="flex justify-between items-center rounded border border-black border-opacity-50 rounded p-2.5">
+                    className="flex justify-between items-center rounded border border-black border-opacity-50 p-2.5">
                     <div className="flex gap-7 items-center">
                         <div className="flex flex-col gap-1 font-medium">
                             <p className="text-xl">Строительный отдел</p>
@@ -68,7 +65,7 @@ const DepartmentEditSidebar = ({sidebarOpen, setSidebarOpen}: {
                     <PlusIcon className="size-6"/>
                 </div>
                 <div
-                    className="flex justify-between items-center rounded border border-black border-opacity-50 rounded p-2.5">
+                    className="flex justify-between items-center rounded border border-black border-opacity-50  p-2.5">
                     <div className="flex gap-7 items-center">
                         <div className="flex flex-col gap-1 font-medium">
                             <p className="text-xl">Строительный отдел</p>
@@ -78,7 +75,7 @@ const DepartmentEditSidebar = ({sidebarOpen, setSidebarOpen}: {
                     <PlusIcon className="size-6"/>
                 </div>
                 <div
-                    className="flex justify-between items-center rounded border border-black border-opacity-50 rounded p-2.5">
+                    className="flex justify-between items-center rounded border border-black border-opacity-50 p-2.5">
                     <div className="flex gap-7 items-center">
                         <div className="flex flex-col gap-1 font-medium">
                             <p className="text-xl">Строительный отдел</p>
