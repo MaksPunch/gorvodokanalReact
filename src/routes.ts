@@ -8,7 +8,8 @@ import TestPage from "./pages/TestPage.tsx";
 import {
   COURSE_PAGE_ROUTE,
   COURSES_PAGE_ADMIN_ROUTE,
-  COURSES_PAGE_ROUTE, DEPARTMENT_EDIT_ADMIN_ROUTE,
+  COURSES_PAGE_ROUTE,
+  DEPARTMENT_EDIT_ADMIN_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
   PROFILE_EDIT_PAGE_ROUTE,
@@ -16,7 +17,9 @@ import {
   SECTION_PAGE_ROUTE,
   TEST_PAGE_ADMIN_ROUTE,
   TEST_PAGE_ROUTE,
-  TESTS_PAGE_ADMIN_ROUTE, USER_EDIT_ADMIN_ROUTE,
+  TESTS_PAGE_ADMIN_ROUTE,
+  USER_EDIT_ADMIN_ROUTE,
+  USER_PROGRESS_ADMIN_ROUTE,
 } from "./utils/consts.ts";
 import CoursesPage from "./pages/CoursesPage.tsx";
 import ResultPage from "./pages/ResultPage.tsx";
@@ -25,6 +28,7 @@ import CoursesPageAdmin from "./pages/admin/CoursesPageAdmin.tsx";
 import TestsPageAdmin from "./pages/admin/TestsPageAdmin.tsx";
 import UserEdit from "./pages/admin/UserEdit.tsx";
 import DepartmentEdit from "./pages/admin/DepartmentEdit.tsx";
+import UserProgress from "./pages/admin/UserProgress.tsx";
 
 export const adminRoutes = [
   {
@@ -45,12 +49,16 @@ export const adminRoutes = [
   },
   {
     path: USER_EDIT_ADMIN_ROUTE,
-    element: UserEdit
+    element: UserEdit,
   },
   {
     path: DEPARTMENT_EDIT_ADMIN_ROUTE,
-    element: DepartmentEdit
-  }
+    element: DepartmentEdit,
+  },
+  {
+    path: USER_PROGRESS_ADMIN_ROUTE,
+    element: UserProgress,
+  },
 ];
 
 export const userRoutes = [

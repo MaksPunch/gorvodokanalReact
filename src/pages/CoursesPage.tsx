@@ -16,6 +16,12 @@ const CoursesPage = () => {
       dispatch(fetchCourses());
     }
   }, [dispatch, courseStatus]);
+
+  useEffect(() => {
+    document.title =
+      "Мои курсы | Система дистанцинного обучения ВологдаГорВодоканал";
+  }, []);
+
   return (
     <div className="main-wrapper flex flex-col gap-7">
       <h1>Мои курсы</h1>

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { useEffect } from "react";
-import {fetchTests, selectTests} from "../../store/reducers/testSlice.ts";
+import { fetchTests, selectTests } from "../../store/reducers/testSlice.ts";
 import { TEST_PAGE_ADMIN_ROUTE } from "../../utils/consts.ts";
 import { Link } from "react-router-dom";
 import {
@@ -44,6 +44,11 @@ const TestsPageAdmin = () => {
       dispatch(fetchQuestions());
     }
   }, [dispatch, testStatus, questionStatus]);
+
+  useEffect(() => {
+    document.title =
+      "Редактирование тестов | Система дистанцинного обучения ВологдаГорВодоканал";
+  }, []);
 
   return (
     <div className="main-wrapper flex flex-col gap-7">

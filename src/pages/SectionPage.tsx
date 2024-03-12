@@ -31,6 +31,16 @@ const SectionPage = () => {
     dispatch(changeCourse(section?.courseId));
   }, [id, dispatch, section]);
 
+  useEffect(() => {
+    if (section) {
+      document.title =
+        section.name + " | Система дистанцинного обучения ВологдаГорВодоканал";
+    } else {
+      document.title =
+        "Тема | Система дистанцинного обучения ВологдаГорВодоканал";
+    }
+  }, [section]);
+
   return (
     <div className="main-wrapper flex flex-col gap-12">
       <div className="flex justify-between items-center">
