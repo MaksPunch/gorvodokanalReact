@@ -100,7 +100,10 @@ export default function ResultPage() {
           (el) => el.questionId === question.id && el.type === "text",
         );
         if (!questionAnswer) return count;
-        if (questionAnswer.answer === questionAnswer.userInput) {
+        if (
+          questionAnswer.answer.toLowerCase().trim() ===
+          questionAnswer.userInput?.toLowerCase().trim()
+        ) {
           return count + 1;
         }
       }

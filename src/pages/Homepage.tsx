@@ -118,7 +118,7 @@ const Homepage = () => {
               key={id}
               sectionsQuantity={sectionsQuantity}
               progress={50}
-              id={id}
+              courseId={id}
             />
           ))}
         </div>

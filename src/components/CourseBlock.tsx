@@ -76,7 +76,8 @@ const CourseBlock = ({
           <p className="text-sm">{progress}% выполнено</p>
           <div className="progress-bar relative">
             <span
-              className={`block absolute rounded-full h-full progress w-[${progress}%]`}
+              className={`block absolute rounded-full h-full progress`}
+              style={{width: `${progress}%`}}
             ></span>
             <span className="block h-full w-full rounded-full progress-bar-full"></span>
           </div>

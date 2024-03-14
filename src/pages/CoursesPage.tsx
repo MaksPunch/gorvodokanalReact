@@ -35,7 +35,7 @@ const CoursesPage = () => {
         {courses.map(({ id, name }) => (
           <CourseBlock
             key={id}
-            id={id}
+            courseId={id}
             name={name}
             className="courses-page-course"
           />

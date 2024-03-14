@@ -35,7 +35,7 @@ const UserProgress = () => {
   return (
     <div className="main-wrapper pt-5">
       <AdditionalProgressModal
-        id={id}
+        userId={id}
         setModalOpen={setAdditionalProgressModalOpen}
         modalOpen={additionalProgressModalOpen}
         name={"Иванова"}

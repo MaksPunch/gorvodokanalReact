@@ -39,7 +39,7 @@ const SectionPage = () => {
       document.title =
         "Тема | Система дистанцинного обучения ВологдаГорВодоканал";
     }
-  }, [section]);
+  }, [section]); 
 
   return (
     <div className="main-wrapper flex flex-col gap-12">

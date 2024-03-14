@@ -58,7 +58,7 @@ const CoursePage = () => {
         className="min-w-[409px]"
         name={course?.name}
         progress={50}
-        id={Number(courseId)}
+        courseId={Number(courseId)}
       ></CourseBlock>
       <div className="sections-in-course-wrapper mb-4 w-full flex flex-col gap-4">
         <h2>Программа курса</h2>
