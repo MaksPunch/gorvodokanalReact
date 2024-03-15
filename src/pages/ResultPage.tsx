@@ -18,7 +18,7 @@ import {
   selectQuestionsByTestId,
 } from "../store/reducers/questionSlice.ts";
 import { changeCourse } from "../store/reducers/courseSlice.ts";
-import { IAnswer } from "../utils/types.ts";
+import { checkIfArraysEquals } from "../utils/checkIfArraysEquals.ts";
 
 export default function ResultPage() {
   const { sectionId } = useParams<"sectionId">();
@@ -66,17 +66,6 @@ export default function ResultPage() {
     questionStatus,
     answerStatus,
   ]);
-
-  function checkIfArraysEquals(array1: IAnswer[], array2: IAnswer[]) {
-    if (array1.length !== array2.length) {
-      return false;
-    }
-
-    for (let i = 0; i < array1.length; i++) {
-      if (array1[i].id !== array2[i].id) return false;
-    }
-    return true;
-  }
 
   useEffect(() => {
     const rightAnswersCount = questions.reduce((count, question) => {

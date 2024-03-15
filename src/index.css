@@ -152,6 +152,41 @@ h2 {
     overflow: hidden;
 }
 
+.open-answerProgress-enter {
+    max-height: 0;
+    overflow: hidden !important;
+    display: none;
+}
+
+.open-answerProgress-enter-active {
+    max-height: 10rem;
+    overflow: hidden;
+    transition: max-height 400ms ease-in;
+    margin: 0;
+}
+
+.open-answerProgress-enter-done {
+    max-height: 10rem;
+    overflow: hidden;
+}
+
+.open-answerProgress-exit {
+    max-height: 10rem;
+    overflow: hidden;
+}
+
+.open-answerProgress-exit-active {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 400ms ease-out, margin 400ms ease-in;
+    margin: -0.32rem 0;
+}
+
+.open-answerProgress-exit-done {
+    max-height: 0;
+    overflow: hidden;
+}
+
 /* Отключение Powered By в CKEditor */
 .ck.ck-balloon-panel {
     display: none !important;

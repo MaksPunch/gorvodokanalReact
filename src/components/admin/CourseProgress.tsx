@@ -55,7 +55,7 @@ const CourseProgress = ({
   return (
     <div
       className={
-        "flex flex-col bg-white rounded w-full h-full pb-7 px-7 overflow-scroll " +
+        "flex flex-col bg-white rounded w-full h-full pb-7 px-7 overflow-auto " +
         className
       }
     >

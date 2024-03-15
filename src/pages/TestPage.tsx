@@ -10,7 +10,7 @@ import {
   fetchAnswers,
   selectAnswer,
   selectAnswersByQuestionId,
-  selectSelectedAnswerByQuestionId,
+  selectSelectedAnswersByQuestionId,
   selectTextAnswer,
 } from "../store/reducers/answerSlice.ts";
 import {
@@ -37,7 +37,7 @@ const TestPage = () => {
   );
   const questions = useAppSelector(selectQuestionsByTestId(section?.testId));
   const selectedAnswer = useAppSelector(
-    selectSelectedAnswerByQuestionId(Number(questionId)),
+    selectSelectedAnswersByQuestionId(Number(questionId)),
   );
   const question = useAppSelector((state) =>
     selectQuestionById(state, Number(questionId)),

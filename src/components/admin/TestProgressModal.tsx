@@ -3,6 +3,20 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { fetchTests, selectTestById } from "../../store/reducers/testSlice.ts";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Breadcrumb from "../Breadcrumb.tsx";
+import {
+  fetchCourses,
+  selectCourseById,
+} from "../../store/reducers/courseSlice.ts";
+import QuestionProgress from "./QuestionProgress.tsx";
+import {
+  fetchQuestions,
+  selectQuestions,
+  selectQuestionsByTestId,
+} from "../../store/reducers/questionSlice.ts";
+import {
+  fetchSections,
+  selectSectionById,
+} from "../../store/reducers/sectionSlice.ts";
 
 interface PropTypes extends React.ComponentPropsWithoutRef<"div"> {
   testId: number;
@@ -20,19 +34,43 @@ const TestProgressModal = ({
   name,
   setModalOpen,
   changeProgressType,
-  courseName,
   sectionId,
   courseId,
 }: PropTypes) => {
   const dispatch = useAppDispatch();
   const { status: testStatus } = useAppSelector((state) => state.testReducer);
+  const { status: questionStatus } = useAppSelector(
+    (state) => state.questionReducer,
+  );
+  const { status: courseStatus } = useAppSelector(
+    (state) => state.courseReducer,
+  );
+  const { status: sectionStatus } = useAppSelector(
+    (state) => state.sectionReducer,
+  );
   const test = useAppSelector((state) => selectTestById(state, testId));
+  const { name: courseName } = useAppSelector((state) =>
+    selectCourseById(state, courseId),
+  );
+  const questions = useAppSelector(selectQuestionsByTestId(testId));
+  const section = useAppSelector((state) =>
+    selectSectionById(state, sectionId),
+  );
 
   useEffect(() => {
     if (testStatus === "idle") {
       dispatch(fetchTests());
     }
-  }, [dispatch, testStatus]);
+    if (courseStatus === "idle") {
+      dispatch(fetchCourses());
+    }
+    if (questionStatus === "idle") {
+      dispatch(fetchQuestions());
+    }
+    if (sectionStatus === "idle") {
+      dispatch(fetchSections());
+    }
+  }, [courseStatus, dispatch, testStatus, questionStatus, sectionStatus]);
 
   const breadcrumbList = [
     {
@@ -50,7 +88,7 @@ const TestProgressModal = ({
       current: false,
     },
     {
-      name: 'Тест по теме "' + sectionId + '"',
+      name: 'Тест по теме "' + section?.name + '"',
       onClick: () => {
         changeProgressType("tests", testId, sectionId);
       },
@@ -61,7 +99,7 @@ const TestProgressModal = ({
   return (
     <div
       className={
-        "flex flex-col bg-white rounded w-full h-full pb-7 px-7 overflow-scroll " +
+        "flex flex-col bg-white rounded w-full h-full pb-7 px-7 overflow-auto " +
         className
       }
     >
@@ -77,7 +115,11 @@ const TestProgressModal = ({
         </div>
         <Breadcrumb pages={breadcrumbList} />
       </div>
-      <h1>{test?.name}</h1>
+      <div className="flex flex-col gap-2.5">
+        {questions.map(({ id }) => (
+          <QuestionProgress questionId={id} key={id} />
+        ))}
+      </div>
     </div>
   );
 };
