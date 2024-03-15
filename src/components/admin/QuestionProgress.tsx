@@ -14,7 +14,7 @@ import {
 import { checkIfArraysEquals } from "../../utils/checkIfArraysEquals.ts";
 import { classNames } from "../../utils/classNames.ts";
 import { CSSTransition } from "react-transition-group";
-import { selectSectionById } from "../../store/reducers/sectionSlice.ts";
+import MyButton from "../MyButton.tsx";
 
 interface PropTypes extends React.ComponentPropsWithoutRef<"div"> {
   questionId: number;
@@ -102,7 +102,7 @@ const QuestionProgress = ({ questionId }: PropTypes) => {
   }, [question]);
 
   return (
-    <div className="flex flex-col gap-2.5 w-full border border-black border-opacity-50 rounded p-2.5">
+    <div className="flex flex-col gap-2.5 w-full border rounded p-2.5">
       <div
         className="flex justify-between items-center cursor-pointer gap-3"
         onClick={() => setExpanded(!expanded)}
@@ -143,24 +143,11 @@ const QuestionProgress = ({ questionId }: PropTypes) => {
               "{rightAnswers.map((el) => el.answer).join('", "')}"{" "}
             </b>
           </p>
+          <MyButton className="mt-3 bg-green-600 hover:bg-green-700">
+            Отметить как правильно
+          </MyButton>
         </div>
       </CSSTransition>
-      {/*{expanded ? (*/}
-      {/*  <div className="flex flex-col gap-1.5">*/}
-      {/*    <p className="font-medium">*/}
-      {/*      Выбранный вариант:{" "}*/}
-      {/*      <b>"{selectedAnswers.map((el) => el.answer).join('", "')}" </b>*/}
-      {/*    </p>*/}
-      {/*    <p className="font-medium">*/}
-      {/*      Правильный вариант:{" "}*/}
-      {/*      <b className="text-green-600">*/}
-      {/*        "{rightAnswers.map((el) => el.answer).join('", "')}"{" "}*/}
-      {/*      </b>*/}
-      {/*    </p>*/}
-      {/*  </div>*/}
-      {/*) : (*/}
-      {/*  ""*/}
-      {/*)}*/}
     </div>
   );
 };

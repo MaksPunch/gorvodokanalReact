@@ -10,7 +10,6 @@ import {
 import QuestionProgress from "./QuestionProgress.tsx";
 import {
   fetchQuestions,
-  selectQuestions,
   selectQuestionsByTestId,
 } from "../../store/reducers/questionSlice.ts";
 import {

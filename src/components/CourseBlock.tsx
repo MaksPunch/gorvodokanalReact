@@ -52,7 +52,9 @@ const CourseBlock = ({
   }
   return (
     <div
-      className={"course flex flex-col gap-3.5 px-7 py-5 rounded " + className}
+      className={
+        "course flex flex-col gap-3.5 px-7 py-5 rounded border " + className
+      }
       onClick={
         onClick
           ? onClick
@@ -77,7 +79,7 @@ const CourseBlock = ({
           <div className="progress-bar relative">
             <span
               className={`block absolute rounded-full h-full progress`}
-              style={{width: `${progress}%`}}
+              style={{ width: `${progress}%` }}
             ></span>
             <span className="block h-full w-full rounded-full progress-bar-full"></span>
           </div>
